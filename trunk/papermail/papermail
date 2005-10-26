@@ -16,12 +16,12 @@
 
 
 use Mail::Webmail::Gmail;
-print "Welcome to the alpha of the alpha PaperMail";
+print "Welcome to the alpha of the alpha PaperMail\n";
 # This alpha is completely gmail powered because our primary developer is farmilliar with this library
 # But it doesn't take me long to learn libs. Especially in perl :D
-print "Enter Gmail Username";
+print "Enter Gmail Username\n";
 my $gmailuser = <STDIN>;
-print "Enter Gmail Password";
+print "Enter Gmail Password\n";
 my $gmaillpass = <STDIN>;
 my $gmail = Mail::Webmail::Gmail->new(username => $gmailuser, password 
 => $gmaillpass,);
