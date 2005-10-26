@@ -15,20 +15,52 @@
 #    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 
+use Mail::Client::Yahoo;
+use Net::SMTP;
 use Mail::Webmail::Gmail;
-print "Welcome to the alpha of the alpha PaperMail\n";
+
+print "Welcome to the CVS PaperMail\n";
 # This alpha is completely gmail powered because our primary developer is farmilliar with this library
 # But it doesn't take me long to learn libs. Especially in perl :D
-print "Enter Gmail Username\n";
-my $gmailuser = <STDIN>;
-print "Enter Gmail Password\n";
-my $gmaillpass = <STDIN>;
-my $gmail = Mail::Webmail::Gmail->new(username => $gmailuser, password 
-=> $gmaillpass,);
-my $email_addrs = [
-   'pufflez@gmail.com',
-   'ultramancool@gmail.com'
-   ];
-for $i (1...100) {
-$gmail->send_message( to => $email_addrs, subject => "Sent Via Papermail $i", msgbody => 'Yippe PaperMail well atleast not you cant say you dont have enought mail!' );
+
+ymail();
+
+sub ymail {
+$y = Mail::Client::Yahoo->login(
+  username => 'ultramancool2',
+  password => 'smarty',
+);
+
+$y->send_message(
+  to => 'ultramancool@gmail.com' ,
+  subject => 'test' ,
+  body => 'papermail' ,
+);
+};
+
+sub smtp {
+    $smtp = Net::SMTP->new('smtp.hotpop.com:25000');
+    $smtp->mail($ENV{USER});
+    $smtp->to('ultramancool@gmail.com');
+    $smtp->data();
+    $smtp->datasend("To: ultramancool@gmail.com\n");
+    $smtp->datasend("\n");
+    $smtp->datasend("A simple test message\n");
+    $smtp->dataend();
+    $smtp->quit;
+};
+
+sub gmail {
+	print "Enter Gmail Username\n";
+	my $gmailuser = <STDIN>;
+	print "Enter Gmail Password\n";
+	my $gmaillpass = <STDIN>;
+	my $gmail = Mail::Webmail::Gmail->new(username => $gmailuser, password	=> $gmaillpass,);
+	my $email_addrs = [
+	   'pufflez@gmail.com',
+	   'ultramancool@gmail.com'
+	   ];
+	for $i (1...100) {
+	$gmail->send_message( to => $email_addrs, subject => "Sent Via Papermail $i", msgbody => 'Yippe PaperMail well 	atleast not you cant say you dont have enought mail!' );
+};
 };
