@@ -15,7 +15,7 @@
 #    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 
-use Mail::Client::Yahoo;
+#use Mail::Client::Yahoo;
 use Net::SMTP;
 use Mail::Webmail::Gmail;
 
@@ -23,12 +23,10 @@ print "Welcome to the CVS PaperMail\n";
 # This alpha is completely gmail powered because our primary developer is farmilliar with this library
 # But it doesn't take me long to learn libs. Especially in perl :D
 
-ymail();
-
 sub ymail {
 $y = Mail::Client::Yahoo->login(
-  username => 'ultramancool2',
-  password => 'smarty',
+  username => '',
+  password => '',
 );
 
 $y->send_message(
@@ -39,11 +37,11 @@ $y->send_message(
 };
 
 sub smtp {
-    $smtp = Net::SMTP->new('smtp.hotpop.com:25000');
+    $smtp = Net::SMTP->new('smtp1.sympatico.ca');
     $smtp->mail($ENV{USER});
-    $smtp->to('ultramancool@gmail.com');
+    $smtp->to('ultramancool@shinyfeet.com');
     $smtp->data();
-    $smtp->datasend("To: ultramancool@gmail.com\n");
+    $smtp->datasend("To: ultramancool@shinyfeet.com\n");
     $smtp->datasend("\n");
     $smtp->datasend("A simple test message\n");
     $smtp->dataend();
