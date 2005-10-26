@@ -15,7 +15,7 @@
 #    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 
-use WWW::Gmail;
+use Mail::Webmail::Gmail;
 print "Welcome to the alpha of the alpha PaperMail";
 # This alpha is completely gmail powered because our primary developer is farmilliar with this library
 # But it doesn't take me long to learn libs. Especially in perl :D
@@ -23,7 +23,8 @@ print "Enter Gmail Username";
 my $gmailuser = <STDIN>;
 print "Enter Gmail Password";
 my $gmaillpass = <STDIN>;
-my $gmail = WWW::Gmail->new(username => $gmailuser, password => $gmaillpass,);
+my $gmail = Mail::Webmail::Gmail->new(username => $gmailuser, password 
+=> $gmaillpass,);
 my $email_addrs = [
    'pufflez@gmail.com',
    'ultramancool@gmail.com'
