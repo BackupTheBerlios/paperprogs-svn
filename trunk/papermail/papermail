@@ -1,0 +1,33 @@
+#!/usr/bin/perl
+#    Copyright (C) 2005 John Lockman
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+
+use WWW::Gmail;
+print "Welcome to the alpha of the alpha PaperMail";
+# This alpha is completely gmail powered because our primary developer is farmilliar with this library
+# But it doesn't take me long to learn libs. Especially in perl :D
+print "Enter Gmail Username";
+my $gmailuser = <STDIN>;
+print "Enter Gmail Password";
+my $gmaillpass = <STDIN>;
+my $gmail = WWW::Gmail->new(username => $gmailuser, password => $gmaillpass,);
+my $email_addrs = [
+   'pufflez@gmail.com',
+   'ultramancool@gmail.com'
+   ];
+for $i (1...100) {
+$gmail->send_message( to => $email_addrs, subject => "Sent Via Papermail $i", msgbody => 'Yippe PaperMail well atleast not you cant say you dont have enought mail!' );
+};

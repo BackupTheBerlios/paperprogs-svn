@@ -1,0 +1,8 @@
+===================================
+PaperMail Installation Instructions
+===================================
+
+To install PaperMail you can simply type:
+		make install
+Now if you've got /usr/local/bin in your path all you have to do is type
+		papermail
