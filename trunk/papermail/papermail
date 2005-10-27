@@ -20,8 +20,7 @@ use Net::SMTP;
 use Mail::Webmail::Gmail;
 
 print "Welcome to the CVS PaperMail\n";
-# This alpha is completely gmail powered because our primary developer is farmilliar with this library
-# But it doesn't take me long to learn libs. Especially in perl :D
+#Ok, so this is a mess right now!... But it's CVS so, i'll fix it later
 
 sub ymail {
 $y = Mail::Client::Yahoo->login(
@@ -37,9 +36,9 @@ $y->send_message(
 };
 
 sub smtp {
-    $smtp = Net::SMTP->new('smtp1.sympatico.ca');
+    $smtp = Net::SMTP->new('');
     $smtp->mail($ENV{USER});
-    $smtp->to('ultramancool@shinyfeet.com');
+    $smtp->to('');
     $smtp->data();
     $smtp->datasend("To: ultramancool@shinyfeet.com\n");
     $smtp->datasend("\n");
