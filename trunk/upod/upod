@@ -5,7 +5,6 @@
  print "This is the Universal Port Opening Daemon\n";
  print "-----------------------------------------\n";
  if ($ARGV[0] eq "") { help(); };				# Redirect to help
- our $nmap = 0;
  if ($ARGV[1] eq '--scanpassive') { $nmap = "1" };
  if ($ARGV[1] eq '--scanactive') { $nmap = "2" };
 
