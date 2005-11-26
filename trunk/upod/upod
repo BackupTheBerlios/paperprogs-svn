@@ -1,7 +1,7 @@
 #!/usr/bin/perl 
  use IO::Socket;
  use Net::hostent;
- do "$ENV{HOME}/.upodrc";
+ do "upod.conf";
  print "This is the Universal Port Opening Daemon\n";
  print "-----------------------------------------\n";
  if ($ARGV[0] eq "") { help(); };				# Redirect to help
