@@ -1,4 +1,4 @@
-UPOD(1) 	      User Contributed Perl Documentation	       UPOD(1)
+UPOD(1) 		 Paper Programs Documentation		       UPOD(1)
 
 
 
@@ -17,15 +17,15 @@ DESCRIPTION
        and hackers (or finding pre-vulnerable machines).
 
 OPTIONS
-       --nmap autmagically nmap clients
+       --scanpassive autmagically port scan clients
 
-       --nmaphold autmagically nmap clients and make them wait until portscan if finished before they get the message
+       --scanactive autmagically port scan clients and make them wait until portscan if finished before they get the message
 
 EXAMPLES
        Open port 135/tcp to find out who would be using it and what ports they
        have open:
 
-		 upod 135 --nmap
+		 upod 135 --scanpassive
 
        Open port 445/tcp send a message then recive a message to STDOUT:
 
@@ -43,4 +43,4 @@ SEE ALSO
 
 
 
-perl v5.8.7			  2005-11-26			       UPOD(1)
+upod vCVS			  2005-11-26			       UPOD(1)

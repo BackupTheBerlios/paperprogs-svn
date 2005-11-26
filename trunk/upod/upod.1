@@ -129,7 +129,7 @@
 .\" ========================================================================
 .\"
 .IX Title "UPOD 1"
-.TH UPOD 1 "2005-11-26" "perl v5.8.7" "User Contributed Perl Documentation"
+.TH UPOD 1 "2005-11-26" "upod vCVS" "Paper Programs Documentation"
 .SH "NAME"
 upod \- open any port to anyone
 .SH "SYNOPSIS"
@@ -140,16 +140,16 @@ upod port [\-\-nmap] [\-\-nmaphold]
 upod is a universal port opening tool! You can use it to find out who would be trying to access what port and what they would be trying to do if you had a daemon on that port (with a comination of upod and a packet sniffer). Each client that connects is sent a simple message then dropped, making this very usefull for delaying or finding viruses and hackers (or finding pre-vulnerable machines).
 .SH "OPTIONS"
 .IX Header "OPTIONS"
-\&\fB\-\-nmap\fR autmagically nmap clients
+\&\fB\-\-scanpassive\fR autmagically port scan clients
 .PP
 .Vb 1
-\&\fB\-\-nmaphold\fR autmagically nmap clients and make them wait until portscan if finished before they get the message
+\&\fB\-\-scanactive\fR autmagically port scan clients and make them wait until portscan if finished before they get the message
 .SH "EXAMPLES"
 .IX Header "EXAMPLES"
 Open port 135/tcp to find out who would be using it and what ports they have open:
 .PP
 .Vb 1
-\&          upod 135 --nmap
+\&          upod 135 --scanpassive
 .Ve
 .PP
 Open port 445/tcp send a message then recive a message to \s-1STDOUT:\s0

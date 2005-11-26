@@ -6,8 +6,8 @@
  print "-----------------------------------------\n";
  if ($ARGV[0] eq "") { help(); };				# Redirect to help
  our $nmap = 0;
- if ($ARGV[1] eq '--nmap') { $nmap = "1" };
- if ($ARGV[1] eq '--nmaphold') { $nmap = "2" };
+ if ($ARGV[1] eq '--scanpassive') { $nmap = "1" };
+ if ($ARGV[1] eq '--scanactive') { $nmap = "2" };
 
  $PORT = $ARGV[0];                  				# Take command line arg for port
 
