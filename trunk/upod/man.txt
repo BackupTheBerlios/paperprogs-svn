@@ -1,0 +1,42 @@
+UPOD(1) 	      User Contributed Perl Documentation	       UPOD(1)
+
+
+
+NAME
+       upod - open any port to anyone
+
+SYNOPSIS
+       upod [--nmap] port
+
+DESCRIPTION
+       upod is a universal port opening tool! You can use it to find out who
+       would be trying to access what port and what they would be trying to do
+       if you had a daemon on that port (with a comination of upod and a
+       packet sniffer). Each client that connects is sent a simple message
+       then dropped, making this very usefull for delaying or finding viruses
+       and hackers (or finding pre-vulnerable machines).
+
+OPTIONS
+       --nmap autmagically nmap clients
+
+EXAMPLES
+       Open port 135/tcp to find out who would be using it:
+
+		 upod 135
+
+       Open port 445/tcp send a message then recive a message to STDOUT:
+
+		 upodwithin 445
+
+       Open port 1026/udp to find out who would be using it:
+		 upodudp 1026
+
+AUTHOR
+       John Lockman of Paper Programs
+
+SEE ALSO
+       nmap(1) nc(1) telnet(1)
+
+
+
+perl v5.8.7			  2005-11-26			       UPOD(1)
