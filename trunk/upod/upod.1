@@ -134,19 +134,22 @@
 upod \- open any port to anyone
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
-upod [\-\-nmap] port
+upod port [\-\-nmap] [\-\-nmaphold]
 .SH "DESCRIPTION"
 .IX Header "DESCRIPTION"
 upod is a universal port opening tool! You can use it to find out who would be trying to access what port and what they would be trying to do if you had a daemon on that port (with a comination of upod and a packet sniffer). Each client that connects is sent a simple message then dropped, making this very usefull for delaying or finding viruses and hackers (or finding pre-vulnerable machines).
 .SH "OPTIONS"
 .IX Header "OPTIONS"
 \&\fB\-\-nmap\fR autmagically nmap clients
-.SH "EXAMPLES"
-.IX Header "EXAMPLES"
-Open port 135/tcp to find out who would be using it:
 .PP
 .Vb 1
-\&          upod 135
+\&\fB\-\-nmaphold\fR autmagically nmap clients and make them wait until portscan if finished before they get the message
+.SH "EXAMPLES"
+.IX Header "EXAMPLES"
+Open port 135/tcp to find out who would be using it and what ports they have open:
+.PP
+.Vb 1
+\&          upod 135 --nmap
 .Ve
 .PP
 Open port 445/tcp send a message then recive a message to \s-1STDOUT:\s0
@@ -156,7 +159,9 @@ Open port 445/tcp send a message then recive a message to \s-1STDOUT:\s0
 .Ve
 .PP
 Open port 1026/udp to find out who would be using it:
-          upodudp 1026
+.PP
+.Vb 1
+\&          upodudp 1026
 .SH "AUTHOR"
 .IX Header "AUTHOR"
 John Lockman of Paper Programs

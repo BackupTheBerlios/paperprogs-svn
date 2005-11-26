@@ -6,7 +6,7 @@ NAME
        upod - open any port to anyone
 
 SYNOPSIS
-       upod [--nmap] port
+       upod port [--nmap] [--nmaphold]
 
 DESCRIPTION
        upod is a universal port opening tool! You can use it to find out who
@@ -19,16 +19,20 @@ DESCRIPTION
 OPTIONS
        --nmap autmagically nmap clients
 
-EXAMPLES
-       Open port 135/tcp to find out who would be using it:
+       --nmaphold autmagically nmap clients and make them wait until portscan if finished before they get the message
 
-		 upod 135
+EXAMPLES
+       Open port 135/tcp to find out who would be using it and what ports they
+       have open:
+
+		 upod 135 --nmap
 
        Open port 445/tcp send a message then recive a message to STDOUT:
 
 		 upodwithin 445
 
        Open port 1026/udp to find out who would be using it:
+
 		 upodudp 1026
 
 AUTHOR
