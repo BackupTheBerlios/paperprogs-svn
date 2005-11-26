@@ -1,8 +1,11 @@
 #!/usr/bin/perl
  use IO::Socket;
- use Net::hostent;              # for OO version of gethostbyaddr
+ use Net::hostent;
+ print "This is the Universal Port Opening Daemon\n";
+ print "-----------------------------------------\n";
+ if ($ARGV[0] eq "") { help(); };
 
- $PORT = $ARGV[0];                  # pick something not in use
+ $PORT = $ARGV[0];                  
 
  $server = IO::Socket::INET->new( Proto     => 'tcp',
                                   LocalPort => $PORT,
@@ -10,7 +13,7 @@
                                   Reuse     => 1);
 
  die "can't setup server" unless $server;
- print "[Server $0 accepting clients]\n";
+ print "[port $PORT accepting clients]\n";
  our $jimmy;
  while ($client = $server->accept()) {
    our $mrh;
@@ -28,3 +31,10 @@
    close $client;
    $mrh = inet_ntoa($hostinfo->addr);
  }
+
+sub help {
+	print "upod v.CVS\n";
+	print "syntax: upod [port]\n";
+	print "For more help see the man page or web site\n";
+	exit;
+};
