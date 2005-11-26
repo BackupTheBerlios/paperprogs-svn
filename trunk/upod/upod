@@ -1,6 +1,7 @@
-#!/usr/bin/perl
+#!/usr/bin/perl 
  use IO::Socket;
  use Net::hostent;
+ do "$ENV{HOME}/.upodrc";
  print "This is the Universal Port Opening Daemon\n";
  print "-----------------------------------------\n";
  if ($ARGV[0] eq "") { help(); };				# Redirect to help
@@ -22,12 +23,12 @@
    our $mrh;
    our $curip;
    our $hostinfo;
-   open LOG, ">>out.log" or die $!;				#open out.log: the log file
+   if ($file ne "") { open LOG, ">>$file" or die $!; };			#open out.log: the log file
    $client->autoflush(1);
    $hostinfo = gethostbyaddr($client->peeraddr);		#set host info
    die "A name resolution failed!" unless $hostinfo->addr;	#used to be a freakish bug, haven't had the problem recently
    $curip = inet_ntoa($hostinfo->addr);
-   if ($mrh ne $curip) { print LOG $curip, "\n"; };
+   if (($file ne "") && ($mrh ne $curip)) { print LOG $curip, "\n"; };
    if ($mrh ne $curip) { $num++;};
    if (($mrh ne $curip) && ($nmap == "1" )) { system("nmap $curip &"); };
    if (($mrh ne $curip) && ($nmap == "2" )) { system("nmap $curip"); };
