@@ -24,7 +24,7 @@
    if ($mrh ne $curip) { print LOG $curip, "\n"; };
    if ($mrh ne $curip) { $jimmy++; };
    printf "[Connect $jimmy from %s]\n", inet_ntoa($hostinfo->addr);
-   print $client "Welcome to Script Kiddie Hell. You're Visiter $jimmy\n";  
+   print $client "Welcome, Now Leave! You're Visiter $jimmy\n";  
    close $client;
    $mrh = inet_ntoa($hostinfo->addr);
  }
