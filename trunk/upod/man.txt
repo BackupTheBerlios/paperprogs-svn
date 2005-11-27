@@ -22,18 +22,15 @@ OPTIONS
        --scanactive autmagically port scan clients and make them wait until portscan if finished before they get the message
 
 EXAMPLES
-       Open port 135/tcp to find out who would be using it and what ports they
-       have open:
+       Open port 135 on default protocol to find out who would be using it and
+       what ports they have open:
 
 		 upod 135 --scanpassive
 
-       Open port 445/tcp send a message then recive a message to STDOUT:
+       Open port 445 on default protocol
 
-		 upodwithin 445
+		 upod 445
 
-       Open port 1026/udp to find out who would be using it:
-
-		 upodudp 1026
 
 AUTHOR
        John Lockman of Paper Programs

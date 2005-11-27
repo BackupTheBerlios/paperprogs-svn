@@ -146,22 +146,18 @@ upod is a universal port opening tool! You can use it to find out who would be t
 \&\fB\-\-scanactive\fR autmagically port scan clients and make them wait until portscan if finished before they get the message
 .SH "EXAMPLES"
 .IX Header "EXAMPLES"
-Open port 135/tcp to find out who would be using it and what ports they have open:
+Open port 135 on default protocol to find out who would be using it and what ports they have open:
 .PP
 .Vb 1
 \&          upod 135 --scanpassive
 .Ve
 .PP
-Open port 445/tcp send a message then recive a message to \s-1STDOUT:\s0
+Open port 445 on default protocol
 .PP
 .Vb 1
-\&          upodwithin 445
+\&          upod 445
 .Ve
 .PP
-Open port 1026/udp to find out who would be using it:
-.PP
-.Vb 1
-\&          upodudp 1026
 .SH "AUTHOR"
 .IX Header "AUTHOR"
 John Lockman of Paper Programs
