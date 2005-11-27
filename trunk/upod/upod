@@ -3,7 +3,7 @@
  use Net::hostent;
  do "upod.conf";
  print "This is the Universal Port Opening Daemon\n";
- print "-----------------------------------------\n";
+ print "-------------PaperProgs------------------\n";
  if (($ARGV[0] eq "") && ($PORT eq "")) { help(); };
  if ($ARGV[0] ne "") { $PORT = $ARGV[0]; };				# Redirect to help
  if ($ARGV[1] eq '--scanpassive') { $nmap = "1" };
