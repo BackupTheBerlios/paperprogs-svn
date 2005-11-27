@@ -32,7 +32,7 @@
    if (($mrh ne $curip) && ($nmap == "1" )) { system("$portscan $curip &"); };
    if (($mrh ne $curip) && ($nmap == "2" )) { system("$portscan $curip"); };
    printf "[Connection $num from %s]\n", inet_ntoa($hostinfo->addr);
-   print $client $msg;  
+   print $client $msg, $num;  
    close $client;
    $mrh = inet_ntoa($hostinfo->addr);				#$mrh = most recent host
  }
