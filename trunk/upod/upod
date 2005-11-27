@@ -29,8 +29,8 @@
    $curip = inet_ntoa($hostinfo->addr);
    if (($file ne "") && ($mrh ne $curip)) { print LOG $curip, "\n"; };
    if ($mrh ne $curip) { $num++;};
-   if (($mrh ne $curip) && ($nmap == "1" )) { system("$portscan $curip &"); };
-   if (($mrh ne $curip) && ($nmap == "2" )) { system("$portscan $curip"); };
+   if (($mrh ne $curip) && ($nmap == "1" )) { system("$portscan $curip >> $portscanfile &"); };
+   if (($mrh ne $curip) && ($nmap == "2" )) { system("$portscan $curip >> $portscanfile"); };
    printf "[Connection $num from %s]\n", inet_ntoa($hostinfo->addr);
    print $client $msg, $num;  
    close $client;
