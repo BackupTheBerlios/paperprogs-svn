@@ -57,8 +57,7 @@ $dbh->do("INSERT INTO monsters VALUES (NULL, 'Moron', '1', '3')");
 #Code To Load an Area
 sub startarea {
 print "You are in ";
-my $all = $dbh->selectall_arrayref("SELECT * FROM rooms WHERE id = 
-'$_[0]' LIMIT 1");	# Run SQLite Query
+my $all = $dbh->selectall_arrayref("SELECT * FROM rooms WHERE id = '$_[0]' LIMIT 1");	# Run SQLite Query
 foreach my $row (@$all) {			#parse results
   my ($area, $word, $look, $exits) = @$row;	#define
   print "$word\n$look\nExits are:";	#print results
@@ -82,6 +81,7 @@ foreach my $row (@$all) {			#parse results
   print "$name\n";	                        #print results
   return $area;					#return the area so that the other parts of this prog can use it
 }
+}
 
 sub listinvo {
 my $all = $dbh->selectall_arrayref("SELECT * FROM items WHERE has = '1'");
@@ -89,13 +89,12 @@ foreach my $row (@$all) {
   my ($id, $word, $look) = @$row;
   print "$word : $look\n";
 }
+}
 
 sub checkitem {
 my $all = $dbh->selectall_arrayref("SELECT * FROM items WHERE has = '1' AND id = '$_[0]'");
 foreach my $row (@$all) {
   return 1;
-}
-}
 }
 }
 
@@ -138,16 +137,17 @@ our $barea = startarea(1);
 while ( ($win != 1) && ($quit != 1) ) {			# Main Loop
 print '$ ';						# Don't dis the shell :D
 our $command = <STDIN>;					# Take input
-if ( ($barea eq '1') && ($command =~ /up/) ) { $barea = startarea(4); } #A1-2 up
-if ( ($barea eq '4') && ($command =~ /up/) ) { $barea = startarea(3); } #A1-2 up
-if ( ($barea eq '4') && ($command =~ /down/) ) { $barea = startarea(1); } #A1-2 up
-if ( ($barea eq '3') && ($command =~ /north/) ) { $barea = startarea(2); } #A1-2 up
-if ( ($barea eq '3') && ($command =~ /down/) ) { $barea = startarea(4); } #A1-2 up
-if ( ($barea eq '2') && ($command =~ /south/) ) { $barea = startarea(3); } # A2-1 down
-if ( ($barea eq '1') && ($command =~ /kill bill/) ) { initattack(2); } # A2 get tux
-if ( ($barea eq '2') && ($command =~ /get tux/) ) { giveitem(1); } # A2 get tux
-if ( ( checkitem(3) ) && ($command =~ /inject/) ) { inject(); } # No comment
-if ($command =~ /quit/) { $quit = 1 }; # Quit
-if ($command =~ /exit/) { $quit = 1 }; # Exit
-if ($command =~ /inventory/) { listinvo(); };
+if ( ($barea == 1) && ($command =~ /up/) ) { $barea = startarea(4); } 
+elsif ( ($barea == 4) && ($command =~ /up/) ) { $barea = startarea(3); } 
+elsif ( ($barea == 4) && ($command =~ /down/) ) { $barea = startarea(1); }
+elsif ( ($barea == 3) && ($command =~ /north/) ) { $barea = startarea(2); }
+elsif ( ($barea == 3) && ($command =~ /down/) ) { $barea = startarea(4); }
+elsif ( ($barea == 2) && ($command =~ /south/) ) { $barea = startarea(3); } 
+elsif ( ($barea == 1) && ($command =~ /kill bill/) ) { initattack(2); }
+elsif ( ($barea == 2) && ($command =~ /get tux/) ) { giveitem(1); }
+elsif ( ( checkitem(3) ) && ($command =~ /inject/) ) { inject(); } 
+elsif ($command =~ /quit/) { $quit = 1 }
+elsif ($command =~ /exit/) { $quit = 1 } # Exit
+elsif ($command =~ /inventory/) { listinvo(); }
+else { print "Freak Error"; }
 }
