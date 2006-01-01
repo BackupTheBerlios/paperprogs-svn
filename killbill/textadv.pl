@@ -135,7 +135,7 @@ print "Welome to the unnamed text adventure\n";
 our $barea = startarea(1);
 
 while ( ($win != 1) && ($quit != 1) ) {			# Main Loop
-print '$ ';						# Don't dis the shell :D
+print 'c:> ';						# Don't dis the shell :D
 our $command = <STDIN>;					# Take input
 if ( ($barea == 1) && ($command =~ /up/) ) { $barea = startarea(4); } 
 elsif ( ($barea == 4) && ($command =~ /up/) ) { $barea = startarea(3); } 
@@ -149,5 +149,5 @@ elsif ( ( checkitem(3) ) && ($command =~ /inject/) ) { inject(); }
 elsif ($command =~ /quit/) { $quit = 1 }
 elsif ($command =~ /exit/) { $quit = 1 } # Exit
 elsif ($command =~ /inventory/) { listinvo(); }
-else { print "Freak Error\n"; }
+else { print "What was that?\n"; }
 }
