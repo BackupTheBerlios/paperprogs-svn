@@ -5,7 +5,7 @@ my $dbh = DBI->connect("dbi:SQLite:all.db", "", "",
 
 # If you screwed up your whole database, delete the file 'all.db' and uncomment initdb, if you only slighly screwed it up, uncomment reinitdb
 
-reinitdb();
+#reinitdb();
 #initdb();
 
 sub initdb {
@@ -137,6 +137,7 @@ our $barea = startarea(1);
 while ( ($win != 1) && ($quit != 1) ) {			# Main Loop
 print 'c:> ';						# Don't dis the shell :D
 our $command = <STDIN>;					# Take input
+#replace this with your command statements!
 if ( ($barea == 1) && ($command =~ /up/) ) { $barea = startarea(4); } 
 elsif ( ($barea == 4) && ($command =~ /up/) ) { $barea = startarea(3); } 
 elsif ( ($barea == 4) && ($command =~ /down/) ) { $barea = startarea(1); }
