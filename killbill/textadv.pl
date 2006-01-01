@@ -2,7 +2,11 @@
 use DBI;
 my $dbh = DBI->connect("dbi:SQLite:all.db", "", "",
 {RaiseError => 1, AutoCommit => 1});
+
+# If you screwed up your whole database, delete the file 'all.db' and uncomment initdb, if you only slighly screwed it up, uncomment reinitdb
+
 reinitdb();
+#initdb();
 
 sub initdb {
 #$dbh->do("DROP TABLE rooms");
@@ -48,11 +52,6 @@ $dbh->do("DROP TABLE monsters");
 $dbh->do("CREATE TABLE monsters (id INTEGER PRIMARY KEY, name, attack, health)");
 $dbh->do("INSERT INTO monsters VALUES (NULL, 'You', '12', '50')");
 $dbh->do("INSERT INTO monsters VALUES (NULL, 'Moron', '1', '3')");
-#my $all = $dbh->selectall_arrayref("SELECT * FROM items");
-#foreach my $row (@$all) {
-#  my ($id, $word, $look) = @$row;
-#  print "$word : $look\n";
-#}
 }
 
 #Code To Load an Area
@@ -126,6 +125,7 @@ if ($newattack > $newattacku) {print "You lost the round $newattack vs $newattac
 }
 if ($health == 0) {print "You Won!\n";}
 if ($healthu == 0) {print "You Lost!\n";}
+$dbh->do("UPDATE monster SET health = '$healthu' WHERE id = '1'");
 }
 
 #Initialiaze, Load First Area
@@ -137,9 +137,13 @@ our $barea = startarea(1);
 while ( ($win != 1) && ($quit != 1) ) {			# Main Loop
 print '$ ';						# Don't dis the shell :D
 our $command = <STDIN>;					# Take input
-if ( ($barea eq '1') && ($command =~ /up/) ) { $barea = startarea(2); } #A1-2 up
-if ( ($barea eq '2') && ($command =~ /down/) ) { $barea = startarea(1); } # A2-1 down
-if ( ($barea eq '1') && ($command =~ /kbill/) ) { initattack(2); } # A2 get tux
+if ( ($barea eq '1') && ($command =~ /up/) ) { $barea = startarea(4); } #A1-2 up
+if ( ($barea eq '4') && ($command =~ /up/) ) { $barea = startarea(3); } #A1-2 up
+if ( ($barea eq '4') && ($command =~ /down/) ) { $barea = startarea(1); } #A1-2 up
+if ( ($barea eq '3') && ($command =~ /north/) ) { $barea = startarea(2); } #A1-2 up
+if ( ($barea eq '3') && ($command =~ /down/) ) { $barea = startarea(4); } #A1-2 up
+if ( ($barea eq '2') && ($command =~ /south/) ) { $barea = startarea(3); } # A2-1 down
+if ( ($barea eq '1') && ($command =~ /kill bill/) ) { initattack(2); } # A2 get tux
 if ( ($barea eq '2') && ($command =~ /get tux/) ) { giveitem(1); } # A2 get tux
 if ( ( checkitem(3) ) && ($command =~ /inject/) ) { inject(); } # No comment
 if ($command =~ /quit/) { $quit = 1 }; # Quit
