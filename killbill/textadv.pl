@@ -57,7 +57,8 @@ $dbh->do("INSERT INTO monsters VALUES (NULL, 'Moron', '1', '3')");
 #Code To Load an Area
 sub startarea {
 print "You are in ";
-my $all = $dbh->selectall_arrayref("SELECT * FROM rooms WHERE id = '$_[0]'");	# Run SQLite Query
+my $all = $dbh->selectall_arrayref("SELECT * FROM rooms WHERE id = 
+'$_[0]' LIMIT 1");	# Run SQLite Query
 foreach my $row (@$all) {			#parse results
   my ($area, $word, $look, $exits) = @$row;	#define
   print "$word\n$look\nExits are:";	#print results
