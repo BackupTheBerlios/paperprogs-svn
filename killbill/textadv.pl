@@ -125,7 +125,7 @@ if ($newattack > $newattacku) {print "You lost the round $newattack vs $newattac
 }
 if ($health == 0) {print "You Won!\n";}
 if ($healthu == 0) {print "You Lost!\n";}
-$dbh->do("UPDATE monster SET health = '$healthu' WHERE id = '1'");
+$dbh->do("UPDATE monsters SET health = '$healthu' WHERE id = '1'");
 }
 
 #Initialiaze, Load First Area
@@ -149,5 +149,5 @@ elsif ( ( checkitem(3) ) && ($command =~ /inject/) ) { inject(); }
 elsif ($command =~ /quit/) { $quit = 1 }
 elsif ($command =~ /exit/) { $quit = 1 } # Exit
 elsif ($command =~ /inventory/) { listinvo(); }
-else { print "Freak Error"; }
+else { print "Freak Error\n"; }
 }
