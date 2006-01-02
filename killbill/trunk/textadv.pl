@@ -1,4 +1,5 @@
 #!/usr/bin/perl
+#
 use DBI;
 #use strict; not on because we use too many global variables
 my $dbh = DBI->connect("dbi:SQLite:all.db", "", "",
