@@ -154,10 +154,10 @@ $dbh->do("UPDATE monsters SET health = '$healthu' WHERE id = '1'");
 my $win = 0;
 my $quit = 0;
 print "Welcome to killbill\n";
-print "God: Bill Gates has stolen freewill, you should get it back from him immediately";
-print "You: No";
-print "God: <ZAP>";
-print "You: Ok, Ok";
+print "God: Bill Gates has stolen freewill, you should get it back from him immediately\n";
+print "You: No\n";
+print "God: <ZAP>\n";
+print "You: Ok, Ok\n";
 our $barea = startarea(4);
 
 while ( ($win != 1) && ($quit != 1) ) {			# Main Loop
