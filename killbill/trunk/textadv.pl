@@ -35,7 +35,8 @@ $dbh->do("INSERT INTO monsters VALUES (NULL, 'Bill', '1', '3', '1')");
 #}
 }
 
-sub initdb {#$dbh->do("DROP TABLE rooms");
+sub initdb {
+#$dbh->do("DROP TABLE rooms");
 $dbh->do("CREATE TABLE rooms (id INTEGER PRIMARY KEY, name, look, exits)");
 $dbh->do("INSERT INTO rooms VALUES (NULL, 'Hell', 'You are standing in a firey pit of hell.', 'u')");
 $dbh->do("INSERT INTO rooms VALUES (NULL, 'Heaven', 'You are standing in heaven.', 's')");
@@ -155,7 +156,7 @@ my $quit = 0;
 print "Welcome to killbill\n";
 print "God: Bill Gates has stolen freewill, you should get it back from him immediately";
 print "You: No";
-print "God: <ZAP>":
+print "God: <ZAP>";
 print "You: Ok, Ok";
 our $barea = startarea(4);
 
