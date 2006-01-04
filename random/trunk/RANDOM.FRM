@@ -34,7 +34,7 @@ Begin VB.Form project
       Width           =   2415
    End
    Begin VB.Label Label3 
-      Caption         =   "Paperprogs Random Number Generator 3.1B                           Multiplayer Windows Edition!"
+      Caption         =   "Paperprogs Random Number Generator 3.5"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
          Size            =   18
@@ -98,6 +98,10 @@ Private Sub Text1_Change()
 
 End Sub
 
+
+Private Sub Label3_Click()
+
+End Sub
 
 Private Sub rnd_submit_Click()
 Randomize Timer

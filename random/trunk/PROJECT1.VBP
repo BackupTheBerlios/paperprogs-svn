@@ -1,6 +1,5 @@
 Type=Exe
 Form=RANDOM.FRM
-Module=Module1; MODULE1.BAS
 IconForm="project"
 Startup="project"
 Command32=""
