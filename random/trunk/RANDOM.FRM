@@ -99,10 +99,6 @@ Private Sub Text1_Change()
 End Sub
 
 
-Private Sub Label3_Click()
-
-End Sub
-
 Private Sub rnd_submit_Click()
 Randomize Timer
 x% = Int(Rnd * 10) + 1
