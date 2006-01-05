@@ -1,7 +1,9 @@
 #!/usr/bin/perl
 use LWP 5.64; # Loads all important LWP classes, and makes
                 #  sure your version is reasonably recent.
-use HTTP::Cookies
+use HTTP::Cookies;
+use bigint;
+use warnings;
 
 #############################################################################
 #				User Options                                #
@@ -57,7 +59,7 @@ $fingy = $1;
 }
 #print $fingy;
 
- $response2 = $browser->post( $url, @ns_headers
+ $response2 = $browser->post( $url,
    [
      '__VIEWSTATE' => $fingy, 
      'myUsername' => $username,
@@ -91,6 +93,66 @@ if ($response4->content =~ /<loc version=\"1.0\" src=\"Groundspeak\">/) { print 
 print "\n";
 }
 
+sub makecomm {
+
+
+print "Enter Log Type:\n";
+print "
+\"-1\" - Select One - (Dummy)
+\"2\" Found it
+\"3\" Didn't find it
+\"4\" Write note
+\"5\" Archive (show)
+\"23\" Enable Listing
+\"18\" Post Reviewer Note
+";
+my $typecom = <STDIN>;
+
+print "Enter the month logged\n";
+my $mtl = <STDIN>;
+print "Enter the day logged\n";
+my $daytl = <STDIN>;
+print "Enter the year logged\n";
+my $ytl = <STDIN>;
+
+print "Enter your actual comment\n";
+my $cmmnt = <STDIN>;
+
+if ($response3->content =~ /<tr><td colspan=\"3\" title=\"log your visit\"><a href=\"http:\/\/www.geocaching.com\/seek\/log.aspx\?(.*)\" onMouseOver='xpe\(\"46p7go\"\);/) {   # 'parse out values
+$url3 = "http://www.geocaching.com/seek/log.aspx?$1";
+}
+
+our $response6 = $browser->get( $url3 );
+if ($response6->content =~ /<input type=\"hidden\" name=\"__VIEWSTATE\" value=\"(.*)\"/) {   # parse out values
+$fingy3 = $1;
+}
+
+if ($response6->content =~ /<input type=\"Hidden\" name=\"LogBookPanel1.DateTimeLogged\" value=\"(.*)\"\s\/>/) {
+print $1;
+$dtl = $1;
+}
+print "DTL:" . $dtl . "\n";
+
+print $url3;
+
+ our $response5 = $browser->post( $url3,
+   [
+     '__EVENTTARGET' => '',
+     '__EVENTARGUMENT' => '',
+     '__VIEWSTATE' => $fingy3, 
+     'LogBookPanel1:ddLogType' => $typecom,
+     'LogBookPanel1:DateTimeLogged' => $dtl,
+     'LogBookPanel1:DateTimeLogged_month' => $mtl,
+     'LogBookPanel1:DateTimeLogged_day' => $daytl,
+     'LogBookPanel1:DateTimeLogged_year' => $ytl,
+     'LogBookPanel1:tbLogInfo' => $cmmnt,
+     'LogBookPanel1:LogButton' => 'Submit log entry',
+   ],
+ );
+print $response5->content;
+#print "\n\nDTL:" . $dtl . "\n";
+}
+
 sub cacheinfo {
 
 if ($response3->content =~ /<span id=\"CacheName\">(.*)<\/span><span id=\"LargeMapPrint\">/) {   # parse out values
@@ -112,6 +174,7 @@ print "Long Description: " . $ldes . "\n";
 }
 
 cacheinfo();
+makecomm();
 
 print "\n";
 
