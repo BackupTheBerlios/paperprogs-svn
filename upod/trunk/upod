@@ -34,7 +34,7 @@
    if (($mrh ne $curip) && ($nmap == "2" )) { system("$portscan $curip >> $portscanfile"); };
    printf "[Connection $num from %s]\n", inet_ntoa($hostinfo->addr);
    print $client $msg, $num;  
-   if ($input = "1") {
+   if ($input eq "1") {
    while($line = <$client>) {
    print $line;
    print $client "Operation Complete, now please, GET OFF!\n
