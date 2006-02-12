@@ -1,3 +1,8 @@
+#!/usr/bin/perl
+use CGI;
+$q = new CGI;
+print $q->header("text/css");
+print <<EOF;
 #leftcontent {
 	float: left;
 	width:  17%;
@@ -22,3 +27,4 @@
 }
 body {
 }
+EOF
