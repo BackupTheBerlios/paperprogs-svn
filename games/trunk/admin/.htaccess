@@ -1,0 +1,10 @@
+AuthUserFile /home/groups/paperprogs/htdocs/games/admin/.htpasswd
+AuthGroupFile /dev/null
+AuthName "Games Admin"
+AuthType Basic
+
+<Limit GET POST>
+require valid-user
+</Limit>
+
+

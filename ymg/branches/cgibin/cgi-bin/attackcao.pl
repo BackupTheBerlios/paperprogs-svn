@@ -51,6 +51,17 @@ while (@row=$sth->fetchrow_array)   {
 	our $strength1 = @row[5];
 }
 
+my %begclon = (  # a hash to determin upgrades
+  "labrats" => "Rat.PNG",
+  "Guinea Pig" => "Gpig.PNG",
+  "Squirrel" => "Squirrel.PNG",
+  "Mole" => "Mole.PNG",
+  "Flamingo" => "Flamingo.PNG",
+  "Whale" => "Whale.PNG",
+  "Human" => "Human.PNG",
+  "GNU" => "GNU.PNG",
+);
+
 print <<EOF;
 
 
@@ -74,6 +85,8 @@ Strength: $strength1<br><br>
 <a href="randomluck.pl">Random Luck Game</a><br>
 <a href="worldstats.pl">World Status</a><br>
  </div>
+
+<center><img src='/ymg/images/$begclon{$curfight1}'></center>
 
 
 EOF
@@ -234,6 +247,19 @@ $orig++;
 $points = $points + 50;
 $numbclub++;
 $adventures--;
+my %clonimg = (  # a hash to determin upgrades
+  "labrats" => "Ratcloned.PNG",
+  "Guinea Pig" => "Gpigcloned.PNG",
+  "Squirrel" => "Squirrelcloned.PNG",
+  "Mole" => "Molecolned.PNG",
+  "Flamingo" => "Flamingocloned.PNG",
+  "Whale" => "Whalecloned.PNG",
+  "Human" => "Humancloned.PNG",
+  "GNU" => "GNUcloned.PNG",
+);
+#$orig--; 
+#$adventures--;
+print "<center><img src='/ymg/images/$clonimg{$creature}'></center>";
 print "Cloning Successful! That's one more $creature on the planet! You have made $numbclub clones. There are $orig on the planet now!\n";
 
 $sql = "UPDATE creatures SET numof = $orig WHERE creature = '$creature' ";
@@ -246,6 +272,19 @@ $sth->execute || die "Horrible Failure on SQL injection :$!";
 } else {
 $orig--; 
 $adventures--;
+my %clonfailimg = (  # a hash to determin upgrades
+  "labrats" => "Ratfailed.PNG",
+  "Guinea Pig" => "Gpigfailed.PNG",
+  "Squirrel" => "Squirrelfailed.PNG",
+  "Mole" => "Molefailed.PNG",
+  "Flamingo" => "Flamingofailed.PNG",
+  "Whale" => "Whalefailed.PNG",
+  "Human" => "Humanfailed.PNG",
+  "GNU" => "GNUfailed.PNG",
+);
+$orig--; 
+$adventures--;
+print "<center><img src='/ymg/images/$clonfailimg{$creature}'></center>";
 print "Your cloning failed, you accidentally killed an innocent $creature\n";
 $sql = "UPDATE creatures SET numof = $orig WHERE creature = '$creature' ";
 $sth = $dbh->prepare($sql);
