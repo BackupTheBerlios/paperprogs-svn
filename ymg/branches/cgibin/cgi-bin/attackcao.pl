@@ -242,7 +242,7 @@ my %enemski = (  # a hash to determin enemy skill
 );
 my $enemyski = $enemski{$creature};
 if ($orig > 0) {
-if (rand($enemyski) <= $usedstren) {
+if (rand($enemyski) <= rand($usedstren)) {
 $orig++; 
 $points = $points + 50;
 $numbclub++;
