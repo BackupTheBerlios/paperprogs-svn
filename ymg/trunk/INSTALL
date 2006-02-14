@@ -1,0 +1,8 @@
+------ Yes, More Gnus ------
+1) Install the SQL file to your database (ymg.sql) If you want, make some modifications to the admin password first!
+
+2) Edit db.inc.pl to use your database
+
+3) Upload to the nearest web server that supports perl script or CGI
+
+4) Have fun :-)

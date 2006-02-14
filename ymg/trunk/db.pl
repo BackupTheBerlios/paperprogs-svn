@@ -6,7 +6,7 @@ use CGI::Carp qw(warningsToBrowser fatalsToBrowser);
 $q = new CGI;
 print $q->header( "text/html" );
 
-$dbh = DBI->connect('dbi:mysql:mydb','myuserid','mypassword');
+do "db.inc.pl";
 
 my $user = $q->param(user)
 my $pass = $q->param(pass)

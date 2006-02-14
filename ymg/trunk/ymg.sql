@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS `captcha` (
 -- 
 -- Dumping data for table `captcha`
 -- 
+-- The captcha database... Use the included captcha generators 
 
 INSERT INTO `captcha` VALUES (1, '71');
 INSERT INTO `captcha` VALUES (2, '19');
@@ -383,4 +384,4 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 -- 
 
-INSERT INTO `users` VALUES (1, 'ultramancool', '17b168dca3da9e0c5968f3f06e63c9ea', 4400, 'Squirrel', 88, 36, 1, 4, 278);
+INSERT INTO `users` VALUES (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 0, 'labrats', 0, 100, 2, 0, 0);
