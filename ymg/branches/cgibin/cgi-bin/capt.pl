@@ -7,7 +7,7 @@ use Digest::MD5 qw(md5 md5_hex);
 $q = new CGI;
 print $q->header( "text/html" );
 print $q->start_html("Login to Yes, More Gnus!");
-$dbh = DBI->connect('dbi:mysql:ymg','ultramancool','some_pass');
+do "db.inc.pl";
 
 
 if ($q->param(capt) == 0) {

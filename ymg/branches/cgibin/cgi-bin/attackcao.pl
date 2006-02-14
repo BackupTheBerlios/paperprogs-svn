@@ -4,7 +4,7 @@ use CGI;
 use DBI;
 use CGI::Carp qw(warningsToBrowser fatalsToBrowser);
 
-$dbh = DBI->connect('dbi:mysql:ymg','ultramancool','some_pass');
+do "db.inc.pl";
 my $q = new CGI;
 print $q->header( "text/html" );
 
