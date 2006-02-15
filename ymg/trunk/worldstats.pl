@@ -35,44 +35,7 @@ our $username = $cuser;
 #Logged in
 
 #Print Magic
-$sql = "SELECT adventures,credits,curfight,points,numclub,strength FROM users WHERE username='$username'";
-$sth = $dbh->prepare($sql);
-$sth->execute || die "Horrible Failure on SQL injection :$!";
-
-while (@row=$sth->fetchrow_array)   {
-	our $adventures = @row[0];
-	our $credits1 = @row[1];
-	our $creature = @row[2];
-	our $points = @row[3];
-	our $numbclub = @row[4];
-	our $strength = @row[5];
-}
-
-print <<EOF;
-
-
-<html>
-
-<head>
-<link rel="stylesheet" type="text/css" href="main.css">
-</head>
-
-<body>
-<div id="topcontent"><h1><center> Yes, More GNUs </h1></center> </div>
-<div id="leftcontent"> Status:<br>
-Currently Cloning: $creature<br>
-Cloned: $numbclub<br>
-Adventures: $adventures<br>
-Credits: $credits1<br>
-Points: $points<br>
-Strength: $strength<br><br>
-<a href="attackcao.pl">Clone</a><br>
-<a href="usecred.pl">Use Credit</a><br>
-<a href="randomluck.pl">Random Luck Game</a><br>
-<a href="worldstats.pl">World Status</a><br>
- </div>
-
-EOF
+do "pm.pl";
 #End Magic
 
 $sql = "SELECT * FROM creatures ORDER BY id";
