@@ -15,7 +15,7 @@ if ($user eq "") { die "Enter A Username!" }
 if ($pass eq "") { die "Enter A Password!" }
 $pass = md5_hex($pass);
 
-$sql = "INSERT INTO users VALUES('', '$user', '$pass', 0, 'labrats', 0, 100, 2, 1, 0)";
+$sql = "INSERT INTO users VALUES('', '$user', '$pass', 0, 'labrats', 0, 100, 2, 1, 0, 'main.css')";
 $sth = $dbh->prepare($sql);
 
 $sth->execute || die "Horrible Failure on SQL injection :$!";
