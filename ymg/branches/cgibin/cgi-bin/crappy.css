@@ -1,0 +1,55 @@
+#leftcontent {
+	float: left;
+	width:  17%;
+	height: 90%;
+	border-right: solid;
+	background-color: #00FFCC;
+	color: #00CCFF;
+	
+}
+
+
+
+
+#topcontent {
+	border: solid;
+	height: 10%;
+	border-bottom: solid;
+	background-color: #FF0099;
+	color: #003300;
+}
+
+
+
+
+#rightcontent {
+	position: absolute;
+	top: 12%;
+	left: 30%;
+	width: 10%;
+	height: 90%;
+}
+
+#rightcontent a {
+	color: #CC0053;
+}
+
+#rightcontent a:hover {
+	color: #CCFC18;
+}
+
+#rightcontent a:visited {
+	color: #FFFF91;
+}
+
+a {
+	color: #CC0000;
+}
+
+a:hover {
+	color: #CCFF33;
+}
+
+a:visited {
+	color: #FFFF99;
+}
