@@ -1,0 +1,30 @@
+#!/usr/bin/perl
+use CGI;
+$q = new CGI;
+print $q->header("text/css");
+print <<EOF;
+#leftcontent {
+	float: left;
+	width:  17%;
+	height: 90%;
+	border-right: solid;
+	background-color: #bfbfbf;
+}
+
+#topcontent {
+	border: solid;
+	height: 10%;
+	border-bottom: solid;
+	background-color: #e5e5e5;
+}
+
+#rightcontent {
+	position: absolute;
+	top: 12%;
+	left: 30%;
+	width: 10%;
+	height: 90%;
+}
+body {
+}
+EOF
