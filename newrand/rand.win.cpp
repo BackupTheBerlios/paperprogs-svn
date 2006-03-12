@@ -9,13 +9,20 @@ MyFrame::MyFrame(wxWindow* parent, int id, const wxString& title, const wxPoint&
     wxFrame(parent, id, title, pos, size, wxDEFAULT_FRAME_STYLE)
 {
     srand((unsigned)time(0));
+       wxPanel* panel = new wxPanel(this, -1);
     // begin wxGlade: MyFrame::MyFrame
     Stats = CreateStatusBar(2, 0);
+           SetBackgroundColour(panel->GetBackgroundColour());
     label_8 = new wxStaticText(this, -1, wxT("Paper Progs Random 06"));
+       SetBackgroundColour(panel->GetBackgroundColour());
     label_6 = new wxStaticText(this, -1, wxT("Player 1 Guess:"));
+       SetBackgroundColour(panel->GetBackgroundColour());
     text_ctrl_3 = new wxTextCtrl(this, -1, wxT(""));
+       SetBackgroundColour(panel->GetBackgroundColour());
     label_7 = new wxStaticText(this, -1, wxT("    "));
+           SetBackgroundColour(panel->GetBackgroundColour());
     label_5_copy = new wxStaticText(this, -1, wxT("Player 2 Guess:"));
+       SetBackgroundColour(panel->GetBackgroundColour());
     text_ctrl_4 = new wxTextCtrl(this, -1, wxT(""));
     button_1 = new wxButton(this, -1, wxT("Play Numgen!"));
 
@@ -34,6 +41,7 @@ END_EVENT_TABLE();
 
 void MyFrame::genrand(wxCommandEvent &event)
 {
+            wxPanel* panel = new wxPanel(this, -1);
    int random_int;
    long numy;
    long numy2;
@@ -60,6 +68,7 @@ void MyFrame::genrand(wxCommandEvent &event)
 
 void MyFrame::set_properties()
 {
+            wxPanel* panel = new wxPanel(this, -1);
     // begin wxGlade: MyFrame::set_properties
     SetTitle(wxT("Numgen 2006 XP edition"));
     int Stats_widths[] = { -1, 30 };
@@ -81,6 +90,7 @@ void MyFrame::do_layout()
 {
     // begin wxGlade: MyFrame::do_layout
            wxPanel* panel = new wxPanel(this, -1);
+           SetBackgroundColour(panel->GetBackgroundColour());
     wxBoxSizer* sizer_4 = new wxBoxSizer(wxVERTICAL);
     wxBoxSizer* sizer_6 = new wxBoxSizer(wxHORIZONTAL);
     wxBoxSizer* sizer_9 = new wxBoxSizer(wxVERTICAL);
