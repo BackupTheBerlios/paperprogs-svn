@@ -1,12 +1,8 @@
 #!/usr/bin/perl
-
 use CGI;
 use DBI;
 use CGI::Carp qw(warningsToBrowser fatalsToBrowser);
-use Digest::MD5 qw(md5 md5_hex);
-$q = new CGI;
-print $q->header( "text/html" );
-print $q->start_html("Login to Yes, More Gnus!");
+
 do "db.inc.pl";
 my $q = new CGI;
 print $q->header( "text/html" );
@@ -30,24 +26,31 @@ $sth->execute || die "Horrible Failure on SQL injection :$!";
 my $testme = 0;
 #output database results
 while (@row=$sth->fetchrow_array) {
-	$testme++;
-}
-if ($testme == 0) { die "Got Login info, but it is incorrect" }
-our $username = $cuser;
+        $testme++;
+        }
+        if ($testme == 0) { die "Got Login info, but it is incorrect" }
+        our $username = $cuser;
+        
 
-#Logged in
-
+do "pm.pl";
 my $css = $q->param(csssheet);
-if ($user eq "") { 
-do "pm.pl";  
-print "<form name=\"the_form\" action=\"csssheet.pl.pl\" method=\"post\">\n";
-print "<input name=\"csssheet\" type=\"text\">";
+if ($css eq "") { 
+$sql = "select css from users WHERE username='$username'";
+$sth = $dbh->prepare($sql);
+$sth->execute || die "Horrible Failure on SQL injection :$!";
+#output database results
+while (@row=$sth->fetchrow_array) {
+	our $oldcss = @row[0]
 }
-$pass = md5_hex($pass);
+print "<form name=\"the_form\" action=\"csssheet.pl\" value=\"$oldcss\" method=\"post\" >\n";
+print "<input name=\"csssheet\" type=\"text\">";
+print "</form></div></body>";
+exit;
+}
 
-$sql = "INSERT INTO users VALUES('', '$user', '$pass', 0, 'labrats', 0, 100, 2, 1, 0, 'main.css')";
+$sql = "UPDATE users SET css='$css' WHERE username='$username'";
 $sth = $dbh->prepare($sql);
 
 $sth->execute || die "Horrible Failure on SQL injection :$!";
-print "Registered, proceeding to login <meta http-equiv=\"refresh\" content=\"1;url=login.htm\">";
+print "Done <meta http-equiv=\"refresh\" content=\"1;url=login2.pl\">";
 print $q->end_html;
