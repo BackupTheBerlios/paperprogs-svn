@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?fileVersion 2.0.0?>
+
+<ManagedProjectBuildInfo>
+<target id="Hello.cdt.managedbuild.target.gnu.exe.575759279" name="Executable (Gnu)" parent="cdt.managedbuild.target.gnu.exe" isAbstract="false" artifactName="Hello" isTest="false" errorParsers="org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser">
+<configuration id="cdt.managedbuild.config.gnu.exe.debug.576528776" name="Debug" parent="cdt.managedbuild.config.gnu.exe.debug">
+<toolReference id="cdt.managedbuild.tool.gnu.c.compiler" command="gcc" outputPrefix="" outputFlag="-o" outputs="o">
+<optionReference id="gnu.c.compiler.option.optimization.level" defaultValue="gnu.c.optimization.level.none"/>
+<optionReference id="gnu.c.compiler.option.debugging.level" defaultValue="gnu.c.debugging.level.max"/>
+</toolReference>
+<toolReference id="cdt.managedbuild.tool.gnu.cpp.compiler" command="g++" outputPrefix="" outputFlag="-o" outputs="o">
+<optionReference id="gnu.cpp.compiler.option.optimization.level" defaultValue="gnu.cpp.compiler.optimization.level.none"/>
+<optionReference id="gnu.cpp.compiler.option.debugging.level" defaultValue="gnu.cpp.compiler.debugging.level.max"/>
+<optionReference id="gnu.cpp.compiler.option.preprocessor.def">
+<listOptionValue value="GTK_NO_CHECK_CASTS" builtIn="false"/>
+<listOptionValue value="__WXGTK__" builtIn="false"/>
+<listOptionValue value="_FILE_OFFSET_BITS=64" builtIn="false"/>
+<listOptionValue value="_LARGE_FILES" builtIn="false"/>
+<listOptionValue value="_LARGEFILE_SOURCE=1" builtIn="false"/>
+</optionReference>
+<optionReference id="gnu.cpp.compiler.option.include.paths">
+<listOptionValue value="/usr/lib/wx/include/gtk2-unicode-release-2.6" builtIn="false"/>
+<listOptionValue value="/usr/include/wx-2.6" builtIn="false"/>
+</optionReference>
+<optionReference id="gnu.cpp.compiler.option.warnings.allwarn" defaultValue="false"/>
+<optionReference id="gnu.cpp.compiler.option.other.other" defaultValue=" -c"/>
+</toolReference>
+<toolReference id="cdt.managedbuild.tool.gnu.cpp.linker" command="g++" outputPrefix="" outputFlag="-o" outputs="">
+<optionReference id="gnu.cpp.link.option.libs">
+<listOptionValue value="wx_gtk2u_xrc-2.6" builtIn="false"/>
+<listOptionValue value="wx_gtk2u_html-2.6" builtIn="false"/>
+<listOptionValue value="wx_gtk2u_adv-2.6" builtIn="false"/>
+<listOptionValue value="wx_gtk2u_core-2.6" builtIn="false"/>
+<listOptionValue value="wx_baseu_xml-2.6" builtIn="false"/>
+<listOptionValue value="wx_baseu_net-2.6" builtIn="false"/>
+<listOptionValue value="wx_baseu-2.6" builtIn="false"/>
+</optionReference>
+<optionReference id="gnu.cpp.link.option.paths">
+<listOptionValue value="/usr/X11R6/lib" builtIn="false"/>
+</optionReference>
+<optionReference id="gnu.cpp.link.option.flags" defaultValue=" -pthread -pthread"/>
+</toolReference>
+</configuration>
+<configuration id="cdt.managedbuild.config.gnu.exe.release.1119674073" name="Release" parent="cdt.managedbuild.config.gnu.exe.release">
+<toolReference id="cdt.managedbuild.tool.gnu.c.compiler" command="gcc" outputPrefix="" outputFlag="-o" outputs="o">
+<optionReference id="gnu.c.compiler.option.optimization.level" defaultValue="gnu.c.optimization.level.most"/>
+<optionReference id="gnu.c.compiler.option.debugging.level" defaultValue="gnu.c.debugging.level.none"/>
+</toolReference>
+<toolReference id="cdt.managedbuild.tool.gnu.cpp.compiler" command="g++" outputPrefix="" outputFlag="-o" outputs="o">
+<optionReference id="gnu.cpp.compiler.option.optimization.level" defaultValue="gnu.cpp.compiler.optimization.level.most"/>
+<optionReference id="gnu.cpp.compiler.option.debugging.level" defaultValue="gnu.cpp.compiler.debugging.level.none"/>
+</toolReference>
+</configuration>
+</target>
+</ManagedProjectBuildInfo>
