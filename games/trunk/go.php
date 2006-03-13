@@ -22,7 +22,7 @@ $hits++;
 $look = "hey$croyp";
 if (isset($_COOKIE["$look"]))
 {
-echo "I see you've already been here<br>";
+echo "I see you've already been here<br> :D";
 } else {
 setcookie("hey$croyp", "haha", time()+36000);
 echo 'You will be redirected momentarialy. <br>';
