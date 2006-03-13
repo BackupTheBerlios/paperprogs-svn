@@ -1,6 +1,8 @@
 ------ Yes, More Gnus ------
 1) Install the SQL file to your database (ymg.sql) If you want, make some modifications to the admin password first!
 
+3) Use the included perl scripts to generate the captchas, If I didn't include them, generate your own captchas :D
+
 2) Edit db.inc.pl to use your database
 
 3) Upload to the nearest web server that supports perl script or CGI
