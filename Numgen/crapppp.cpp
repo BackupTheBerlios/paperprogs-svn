@@ -6,8 +6,17 @@
 
 
 MyFrame::MyFrame(wxWindow* parent, int id, const wxString& title, const wxPoint& pos, const wxSize& size, long style):
-    wxDialog(parent, id, title, pos, size, wxSIMPLE_BORDER)
+    wxDialog(parent, id, title, pos, size, wxDEFAULT_FRAME_STYLE)
 {
+    wxBitmap bitmap;
+  if (bitmap.LoadFile("splash.png", wxBITMAP_TYPE_PNG))
+  {
+      wxSplashScreen* splash = new wxSplashScreen(bitmap,
+          wxSPLASH_CENTRE_ON_SCREEN|wxSPLASH_TIMEOUT,
+          6000, NULL, -1, wxDefaultPosition, wxDefaultSize,
+          wxSIMPLE_BORDER|wxSTAY_ON_TOP);
+  }
+  wxYield();
     srand((unsigned)time(0));
     // begin wxGlade: MyFrame::MyFrame
     Stats = new wxStatusBar(this, -1);
@@ -18,8 +27,8 @@ MyFrame::MyFrame(wxWindow* parent, int id, const wxString& title, const wxPoint&
     label_5_copy = new wxStaticText(this, -1, wxT("Player 2 Guess:"));
     text_ctrl_4 = new wxTextCtrl(this, -1, wxT(""));
     button_1 = new wxButton(this, 3, wxT("Play Numgen!"));
-    button_2 = new wxButton(this, -1, wxT("Help!"));
-    button_3 = new wxButton(this, 2, wxT("Exit"));
+    button_2 = new wxButton(this, 2, wxT("Help!"));
+    button_3 = new wxButton(this, -1, wxT("Exit"));
 
     set_properties();
     do_layout();
@@ -28,8 +37,8 @@ MyFrame::MyFrame(wxWindow* parent, int id, const wxString& title, const wxPoint&
 
 void MyFrame::OnAbot(wxCommandEvent &event)
 {
-  wxMessageBox( wxT("THIS IS NUMGEN 2006\n\n1)Type in some guesses\n2)Click Play\n3)Read who won in the status bar\n"), 
-    wxT("NumGen 2006 Help"), wxOK | wxICON_INFORMATION );
+  wxMessageBox( "THIS IS NUMGEN 2006\n\n1)Type in some guesses\n2)Click Play\n3)Read who won\n\n Pro eh?", 
+    "NumGen 2006 Help", wxOK | wxICON_INFORMATION );
 }
 
 void MyFrame::OnExit(wxCommandEvent &event)
@@ -42,8 +51,8 @@ void MyFrame::OnExit(wxCommandEvent &event)
 BEGIN_EVENT_TABLE(MyFrame, wxDialog)
     // begin wxGlade: MyFrame::event_table
     EVT_BUTTON(3, MyFrame::genrand)
-    EVT_BUTTON(2, MyFrame::OnExit)
-    EVT_BUTTON(-1, MyFrame::OnAbot)
+    EVT_BUTTON(2, MyFrame::OnAbot)
+    EVT_BUTTON(-1, MyFrame::OnExit)
     // end wxGlade
 END_EVENT_TABLE();
 
@@ -134,6 +143,7 @@ IMPLEMENT_APP(MyApp)
 
 bool MyApp::OnInit()
 {
+    wxInitAllImageHandlers();
     MyFrame* frame_4 = new MyFrame(0, -1, wxT(""));
     SetTopWindow(frame_4);
     frame_4->Show();
