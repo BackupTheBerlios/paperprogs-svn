@@ -28,7 +28,7 @@ MyFrame::MyFrame(wxWindow* parent, int id, const wxString& title, const wxPoint&
 
 void MyFrame::OnAbot(wxCommandEvent &event)
 {
-  wxMessageBox( wxT("THIS IS NUMGEN 2006\n\n1)Type in some guesses\n2)Click Play\n3)Read who won\n\n Pro eh?"), 
+  wxMessageBox( wxT("THIS IS NUMGEN 2006\n\n1)Type in some guesses\n2)Click Play\n3)Read who won in the status bar\n"), 
     wxT("NumGen 2006 Help"), wxOK | wxICON_INFORMATION );
 }
 
