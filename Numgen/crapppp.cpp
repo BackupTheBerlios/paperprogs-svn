@@ -9,7 +9,7 @@ MyFrame::MyFrame(wxWindow* parent, int id, const wxString& title, const wxPoint&
     wxDialog(parent, id, title, pos, size, wxDEFAULT_FRAME_STYLE)
 {
     wxBitmap bitmap;
-  if (bitmap.LoadFile("splash.png", wxBITMAP_TYPE_PNG))
+  if (bitmap.LoadFile(wxT("splash.png"), wxBITMAP_TYPE_PNG))
   {
       wxSplashScreen* splash = new wxSplashScreen(bitmap,
           wxSPLASH_CENTRE_ON_SCREEN|wxSPLASH_TIMEOUT,
@@ -37,8 +37,8 @@ MyFrame::MyFrame(wxWindow* parent, int id, const wxString& title, const wxPoint&
 
 void MyFrame::OnAbot(wxCommandEvent &event)
 {
-  wxMessageBox( "THIS IS NUMGEN 2006\n\n1)Type in some guesses\n2)Click Play\n3)Read who won\n\n Pro eh?", 
-    "NumGen 2006 Help", wxOK | wxICON_INFORMATION );
+  wxMessageBox( wxT("THIS IS NUMGEN 2006\n\n1)Type in some guesses\n2)Click Play\n3)Read who won\n\n Pro eh?"), 
+    wxT("NumGen 2006 Help"), wxOK | wxICON_INFORMATION );
 }
 
 void MyFrame::OnExit(wxCommandEvent &event)
