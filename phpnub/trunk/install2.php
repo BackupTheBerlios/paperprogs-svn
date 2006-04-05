@@ -2,7 +2,7 @@
 
 $filename = "install.sql";
 
-echo "\n".$filename;
+echo "\n<br>".$filename;
 
 $file = fopen($filename, 'r');
        $data = array();
@@ -23,16 +23,16 @@ $file = fopen($filename, 'r');
                }
        }
 
-echo "\Geting database info... ";
+echo "\Geting database info...<br> ";
 $host = $_POST['dbhost'];
 $user = $_POST['dbuser'];
 $pass = $_POST['dbpass'];
 $db = $_POST['dbname'];
 
-echo "Executing:\n";
-echo "*********************\n";
+echo "Executing:\n<br>";
+echo "*********************\n<br>";
 print_r($data);
-echo "*********************\n";
+echo "<br>*********************\n<br>";
 
 $conn = mysql_connect($host, $user, $pass);
 mysql_select_db($db, $conn);
@@ -47,13 +47,13 @@ mysql_select_db($db, $conn);
                {
                        if(trim($data[$i][$j]) != '')
                        {
-                       echo "++ Running *************\n".$data[$i][$j]."\n++ *******************\n";
+                       echo "<br>++ Running *************\n".$data[$i][$j]."\n++ *******************\n<br>";
                        mysql_query($data[$i][$j].';');
-                       echo "\n\n".mysql_error()."\n\n\n";
+                       echo "\n\n".mysql_error()."\n\n\n<br>";
                        }
                        else
                        {
-                       echo "++ Skipping empty query\n";
+                       echo "++ Skipping empty query\n<br><br>";
                        }
                $j++;
                }
@@ -64,7 +64,7 @@ echo chr(13);
 
 $fr = fopen('../config.php','w');
 if(!$fr) {
-        echo "Could not re-create the config file!";
+        echo "<br>Could not re-create the config file!<br>";
         exit;
 }
 fputs("\$username='$user'\n\$password='$pass'\n\$password='$pass'\n\$database='$db'\n\$host='$host'");
