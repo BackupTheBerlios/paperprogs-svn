@@ -4,7 +4,7 @@ $filename = "install.sql";
 
 echo "\n<br>".$filename;
 
-$file = fopen($filename, 'r');
+$file = fopen($filename, 'rw');
        $data = array();
        $i = 0;
        while($line = fgets($file))
@@ -28,6 +28,7 @@ $host = $_POST['dbhost'];
 $user = $_POST['dbuser'];
 $pass = $_POST['dbpass'];
 $db = $_POST['dbname'];
+$adminp = $_POST[adminp'];
 
 echo "Executing:\n<br>";
 echo "*********************\n<br>";
