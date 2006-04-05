@@ -34,14 +34,12 @@ Version <?php echo $version;?></div>
 <div id="main">
 <div id="navhead">
 <hr /> <span class="hidden">Path to this page:</span>
-<form method="post" action="login2.php" name="Nub">Username:
-&nbsp;<input size="25" name="user" /><br />
+<form method="post" action="logingin.php" name="Nub">Username:
+&nbsp;<input size="25" name="username" /><br />
 
-Password: &nbsp;<input size="25" name="Pass" /><br />
+Password: &nbsp;<input size="25" name="password" /><br />
 
   <input type="submit" /><input type="reset" /></form>
-
-Commands should be in format: googlephpnub<br />
 
 </div>
 
