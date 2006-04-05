@@ -28,7 +28,7 @@ $host = $_POST['dbhost'];
 $user = $_POST['dbuser'];
 $pass = $_POST['dbpass'];
 $db = $_POST['dbname'];
-$adminp = $_POST[adminp'];
+$adminp = $_POST['adminp'];
 
 echo "Executing:\n<br>";
 echo "*********************\n<br>";
