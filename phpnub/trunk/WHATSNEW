@@ -1,7 +1,10 @@
 PHPNub
-Current Version: 0.2.5
+Current Version: 0.2.6
 "A PHP internet commandline"
 ---------------------------------------
+****Version 0.2.6****
+{Addded support for spaces}
+{Added login}
 ****Version 0.2.5****
 {Added admin News}
 {Updated admin UI}
