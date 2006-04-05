@@ -32,8 +32,13 @@ Pass</small> </small></small><br>
   <small><small><small>Database Name<br>
 
   </small></small></small><input name="dbname"><br>
+  <small><small><small>What would you like your admin password to be?<br>
+
+  </small></small></small><input name="adminp"><br>
   <input type="submit"><input type="reset"><br>
-  </big></big></form>
+  </big></big>
+
+</form>
 
 <br>
 
