@@ -1,5 +1,8 @@
 <?php
 
+include 'config.php';
+include 'lock.php';
+
 $file = "news";
 $fp = fopen ("$file", "wb");
 
