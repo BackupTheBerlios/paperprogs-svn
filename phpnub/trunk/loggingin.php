@@ -19,5 +19,5 @@ if ($num > 0) {
 setcookie("uname", $uname, time()+36000); 
 setcookie("pass", $subpass, time()+36000);
 echo "you are now logged it";
-} else { echo "incorrent username or password or SQL fucked up on me"; }
+} else { echo "incorrent username or password"; }
 ?>
