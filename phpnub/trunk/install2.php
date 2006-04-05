@@ -63,11 +63,11 @@ mysql_select_db($db, $conn);
 
 echo chr(13);
 
-$fr = fopen('../config.php','w');
+$fr = fopen('config.php','w');
 if(!$fr) {
-        echo "<br>Could not re-create the config file!<br>";
+        echo "<br>Could not re-create the config file, make sure it's chmoded 777!<br>";
         exit;
 }
-fputs("\$username='$user'\n\$password='$pass'\n\$password='$pass'\n\$database='$db'\n\$host='$host'");
+fputs($fr, "\$username='$user'\n\$password='$pass'\n\n\$database='$db'\n\$host='$host'\n\$sep=' '\n\$version='0.3'");
 fclose($fr);
 ?>
