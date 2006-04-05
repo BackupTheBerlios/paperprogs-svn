@@ -34,10 +34,10 @@ Version <?php echo $version;?></div>
 <div id="main">
 <div id="navhead">
 <hr /> <span class="hidden">Path to this page:</span>
-<form method="post" action="logingin.php" name="Nub">Username:
-&nbsp;<input size="25" name="username" /><br />
+<form method="post" action="loggingin.php" name="Nub">
+Username: <input size="25" name="username" /><br />
 
-Password: &nbsp;<input size="25" name="password" /><br />
+Password: <input size="25" name="password" /><br />
 
   <input type="submit" /><input type="reset" /></form>
 
