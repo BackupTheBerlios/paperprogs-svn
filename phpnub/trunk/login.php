@@ -34,7 +34,7 @@ Version <?php echo $version;?></div>
 <div id="main">
 <div id="navhead">
 <hr /> <span class="hidden">Path to this page:</span>
-PHVault version .1<br>
+PHVault version 0.1<br>
 <form method="post" action="loggingin.php" name="Nub">
 Username: <input size="25" name="username" /><br />
 
