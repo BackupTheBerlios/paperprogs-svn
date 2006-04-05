@@ -4,7 +4,7 @@ $filename = "install.sql";
 
 echo "\n<br>".$filename;
 
-$file = fopen($filename, 'rw');
+$file = fopen($filename, 'a+');
        $data = array();
        $i = 0;
        while($line = fgets($file))
