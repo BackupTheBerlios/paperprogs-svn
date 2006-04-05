@@ -26,7 +26,7 @@ links:</span>&nbsp;
 
 <div style="text-align: center;" class="subheader">
 <span class="hidden">Navigation</span>
-Version </div>
+Version <?php echo $version;?></div>
 
 </div>
 
