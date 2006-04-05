@@ -45,7 +45,6 @@ CREATE TABLE IF NOT EXISTS `phpnub_users` (
 -- Dumping data for table `phpnub_users`
 -- 
 
-INSERT INTO `phpnub_users` (`id`, `user`, `passhash`) VALUES (1, 'admin', '21232f297a57a5a743894a0e4a801fc3'),
-(2, 'drapeaua', 'ae1c1768eee0889f8fb8ef858638e221');
+INSERT INTO `phpnub_users` (`id`, `user`, `passhash`) VALUES (1, 'admin', '21232f297a57a5a743894a0e4a801fc3')
 
 
