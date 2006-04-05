@@ -47,11 +47,6 @@ Commands should be in format: googlephpnub<br />
 
 </div>
 
-<p style="border: 1px dashed black; padding: 5px; font-size: 8pt; font-weight: normal;">
-<u><b>The Latest News:</b></u><br />
-
-</p>
-
 <div style="text-align: center;" id="footer">
 <hr style="margin-left: auto; margin-right: auto;" />
 Copyleft Paperprogs &copy; 2004&ndash;06, Template by John
