@@ -45,8 +45,7 @@ Version <?php echo "$version";?></div>
 <div id="main">
 
 <div id="navhead">
-Welcome to Administration.<br>PaperAdministration Panel Version 0.1<br>May be Insecure Dayton please check.
-<hr /> <span class="hidden">Path to this page:</span>
+Welcome to Administration.<br>PaperAdministration Panel Version 0.1<hr /> <span class="hidden">Path to this page:</span>
 </div>
 
 </div>
