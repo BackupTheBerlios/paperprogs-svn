@@ -4,7 +4,7 @@ $filename = "install.sql";
 
 echo "\n<br>".$filename;
 
-$file = fopen($filename, 'a+');
+$file = fopen($filename, 'r');
        $data = array();
        $i = 0;
        while($line = fgets($file))
@@ -68,6 +68,6 @@ if(!$fr) {
         echo "<br>Could not re-create the config file, make sure it's chmoded 777!<br>";
         exit;
 }
-fputs($fr, "\$username='$user'\n\$password='$pass'\n\n\$database='$db'\n\$host='$host'\n\$sep=' '\n\$version='0.3'");
+fputs($fr, "<?\$username='$user'\n\$password='$pass'\n\n\$database='$db'\n\$host='$host'\n\$sep=' '\n\$version='0.3'?>");
 fclose($fr);
 ?>
