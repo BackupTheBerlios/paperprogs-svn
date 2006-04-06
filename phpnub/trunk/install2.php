@@ -28,12 +28,12 @@ $host = $_POST['dbhost'];
 $user = $_POST['dbuser'];
 $pass = $_POST['dbpass'];
 $db = $_POST['dbname'];
-$adminp = $_POST['adminp'];
+$adminp = strip_tags($_POST['adminp']);
 
-echo "Executing:\n<br>";
-echo "*********************\n<br>";
-print_r($data);
-echo "<br>*********************\n<br>";
+#echo "Executing:\n<br>";
+#echo "*********************\n<br>";
+#print_r($data);
+#echo "<br>*********************\n<br>";
 
 $conn = mysql_connect($host, $user, $pass);
 mysql_select_db($db, $conn);
@@ -48,13 +48,13 @@ mysql_select_db($db, $conn);
                {
                        if(trim($data[$i][$j]) != '')
                        {
-                       echo "<br>++ Running *************\n".$data[$i][$j]."\n++ *******************\n<br>";
+#                       echo "<br>++ Running *************\n".$data[$i][$j]."\n++ *******************\n<br>";
                        mysql_query($data[$i][$j].';');
                        echo "\n\n".mysql_error()."\n\n\n<br>";
                        }
                        else
                        {
-                       echo "++ Skipping empty query\n<br><br>";
+#                       echo "++ Skipping empty query\n<br><br>";
                        }
                $j++;
                }
@@ -62,7 +62,8 @@ mysql_select_db($db, $conn);
        }
 
 echo chr(13);
-
+mysql_query("UPDATE phpnub_users SET passhash='$adminp' WHERE user='admin'");
+mysql_close();
 $fr = fopen('config.php','w');
 if(!$fr) {
         echo "<br>Could not re-create the config file, make sure it's chmoded 777!<br>";
