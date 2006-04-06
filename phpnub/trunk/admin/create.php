@@ -10,6 +10,6 @@ $content = $_POST['content'];
 fwrite($fp, $content);
 fclose($fp);
 
-header("Location: /nub/admin/admin.php");
+header("Location: admin.php");
 
 ?> 
