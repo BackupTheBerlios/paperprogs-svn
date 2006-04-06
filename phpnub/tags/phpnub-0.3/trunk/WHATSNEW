@@ -1,0 +1,46 @@
+PHPNub
+Current Version: 0.3
+"A PHP internet commandline"
+---------------------------------------
+****Version 0.3****
+{Addded support for spaces}
+{Added login}
+{Added Installer}
+{Added ls}
+{Added readme}
+{Other small changes}
+****Version 0.2.5****
+{Added admin News}
+{Updated admin UI}
+{Passworded admin with simple htdocs}
+****Version 0.2.1****
+{Added admin commands}
+****Version 0.2.0.1****
+(Added latestnews)
+(Added Navbar)
+(Changed the UI slightly)
+(1 bugfix in includeskin.php)
+****Version 0.2****
+(Added whatsnew)
+(Added "Comamnd not found")
+(Changed command from space to :)
+(Commented some code)
+(alligned code)
+(added skin include file)
+****Version 1.7.1****
+(Added config.php)
+(Many small bug fixes)
+(Small UI changes)
+****Version 0.1.7****
+(4 bug fixes in create.php)
+(6 bug fixes in phpnub.php)
+(Fixed UI)
+****Version 0.1.5****
+(Added new command function)
+(Made it use SQl)
+(7 Bug fixes)
+(Many UI changes)
+****Version 0.1.1****
+(First stable version)
+(Added command input)
+(Added UI)
