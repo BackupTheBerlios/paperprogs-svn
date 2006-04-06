@@ -2,7 +2,6 @@
 <?php
 include '../config.php';
 include 'lock.php';
-?>
 $command=strip_tags($_GET['command']);
 #$cleanpage=mysql_real_escape_string($realpage);
 #echo $cleanpage;

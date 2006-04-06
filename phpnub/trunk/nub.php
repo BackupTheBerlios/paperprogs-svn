@@ -40,7 +40,7 @@
 <div id="sidebar">
 <a href="add.php">Add a Command</a>
 <br />
-<a href="admin/admin.php">Admin</a>
+<a href="login.php">Admin</a>
 <br />			
 
 </div>
@@ -54,7 +54,7 @@
   
 		<hr />
   				<span class="hidden">Path to this page:</span>
-				<form Method="POST" Action="phpnub.php" Name="Nub">Command: &nbsp;<input size="99" name="command" /><br />
+				<form Method="GET" Action="phpnub.php" Name="Nub">Command: &nbsp;<input size="99" name="command" /><br />
   				<input type="submit" /><input type="reset" /></form>
 Commands should be in format: google<? echo $sep ?>phpnub<br>
 			</div>

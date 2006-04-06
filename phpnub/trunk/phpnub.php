@@ -2,12 +2,13 @@
 
 	include 'config.php';
 
-	$realpage=strip_tags($_POST['command']);
+	$realpage=strip_tags($_GET['command']);
 	#$cleanpage=mysql_real_escape_string($realpage);
 	#echo $cleanpage;
 	list($one, $two) = split($sep, $realpage);
-
-	$two = ereg_replace ($one, '', $command);
+	$regexen = '/($one)/i';
+	$otherone = "$one ";
+	$two = ereg_replace ($otherone, '', $command);
 	mysql_connect($host,$username,$password);
 	@mysql_select_db($database) or die( "Unable to select database");
 	$query="SELECT * FROM phpnub WHERE command='$one'";

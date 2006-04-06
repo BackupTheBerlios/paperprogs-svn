@@ -7,5 +7,5 @@
 	//Command seperator
 	$sep=" ";
 	//Below here does not need to be edited
-	$version="0.3";
+	$version="0.3.1";
 ?>
