@@ -14,7 +14,7 @@ mysql_connect($host,$username,$password);
 if ($num > 0) { 
 setcookie("uname", $uname, time()+36000); 
 setcookie("pass", $subpass, time()+36000);
-echo "you are now logged it <meta http-equiv=\"refresh\" content=\"2;url=admin/admin.php\">";
+echo "you are now logged in <meta http-equiv=\"refresh\" content=\"2;url=admin/admin.php\">";
 
 } else { echo "incorrent username or password <meta http-equiv=\"refresh\" content=\"2;url=nub.php\">"; }
 ?>
