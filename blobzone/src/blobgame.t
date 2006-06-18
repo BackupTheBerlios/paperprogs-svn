@@ -13,24 +13,34 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
-var blobyname : string
-get blobyname
- 
+
+var blobyname : string 
 setscreen ("nocursor,offscreenonly, graphics:800, 600")
-colorback (black)
-color (brightgreen)
 cls
 
 Pic.ScreenLoad ("mine.bmp", 0, 0, picCopy)
+View.Update
 Input.Pause
 cls
 View.Update
 Pic.ScreenLoad ("char.bmp", 0, 0, picCopy)
 Pic.ScreenLoad ("blob.bmp", 50, 450, picMerge)
 Pic.ScreenLoad ("blobcold.bmp", 50, 270, picMerge)
-
+var chars : array char of boolean
+var font4 : int
+font4 := Font.New ("Palatino:12:Bold,Italic")
+assert font4 > 0
+Font.Draw ("Press a key to choose a blob", 250, 500, font4, black)
+Font.Draw ("a) The Original Blob", 50, 400, font4, blue)
+Font.Draw ("b) The Blob, with a cold", 50, 230, font4, blue)
 View.Update
 Input.Pause
+Input.KeyDown (chars)
+if chars ('a') then 
+    blobyname := "blob.bmp"
+elsif chars ('b') then
+    blobyname := "blobcold.bmp"
+end if
 cls
 
 var x, y, s, laserx, lasery, shoot, allowshot, gobullet, gobulletr : int
@@ -43,8 +53,6 @@ x := 100
 y := 100
 s := 25
 shoot := 0
-var chars : array char of boolean
-
   procedure coldethed (xh : int, yh : int)
     if x + s > xh - s and x - s < xh + s and y + s > yh - s and y - s < yh + s then
 	if x > xh + s then
