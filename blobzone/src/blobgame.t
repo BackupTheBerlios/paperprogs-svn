@@ -141,8 +141,8 @@ loop
     end if
 
     for p : 1 .. 5
-	for i : 1 .. 5
-	    Pic.ScreenLoad ("hedge.bmp", 130 * p, 50 * i, picMerge)
+	for i : 1 .. 10
+	    Pic.ScreenLoad ("hedge2.bmp", 130 * p, 50 * i, picMerge)
 
 	    coldethed (130 * p, 50 * i)
 	end for
