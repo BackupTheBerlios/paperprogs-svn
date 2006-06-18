@@ -1,6 +1,5 @@
 /*
- * Blobzone and all of its content is Copyright (c) 2006 of Paperprogs Inc*
- * *Unless otherwise stated
+ * Blobzone and all of its content is Copyright (c) 2006 Paper Programs unless otherwise stated
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -15,10 +14,8 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 var blobyname : string
-
 get blobyname
  
-% backround
 setscreen ("nocursor,offscreenonly, graphics:800, 600")
 colorback (black)
 color (brightgreen)
@@ -26,8 +23,15 @@ cls
 
 Pic.ScreenLoad ("mine.bmp", 0, 0, picCopy)
 Input.Pause
+cls
+View.Update
+Pic.ScreenLoad ("char.bmp", 0, 0, picCopy)
+Pic.ScreenLoad ("blob.bmp", 50, 450, picMerge)
+Pic.ScreenLoad ("blobcold.bmp", 50, 270, picMerge)
 
-%intro
+View.Update
+Input.Pause
+cls
 
 var x, y, s, laserx, lasery, shoot, allowshot, gobullet, gobulletr : int
 gobullet := 0
@@ -41,19 +45,19 @@ s := 25
 shoot := 0
 var chars : array char of boolean
 
-procedure coldethed (xh : int, yh : int)
+  procedure coldethed (xh : int, yh : int)
     if x + s > xh - s and x - s < xh + s and y + s > yh - s and y - s < yh + s then
 	if x > xh + s then
-	    x := x + 5
+	    x := x + 10
 	end if
 	if y > yh + s then
-	    y := y + 5
+	    y := y + 10
 	end if
 	if y < yh + s then
-	    y := y - 5
+	    y := y - 10
 	end if
 	if x < xh + s then
-	    x := x - 5
+	    x := x - 10
 	end if
     end if
 end coldethed
