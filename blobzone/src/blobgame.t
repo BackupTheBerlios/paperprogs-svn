@@ -23,6 +23,8 @@ colorback (black)
 color (brightgreen)
 cls
 
+Pic.ScreenLoad ("mine.bmp", 0, 0, picCopy)
+Input.Pause
 
 %intro
 
@@ -56,7 +58,7 @@ procedure coldethed (xh : int, yh : int)
 end coldethed
 
 loop
-    Pic.ScreenLoad ("bg.jpg", 0, 0, picCopy)
+    Pic.ScreenLoad ("bg.bmp", 0, 0, picCopy)
     Input.KeyDown (chars)
 
     if chars (KEY_UP_ARROW) then
