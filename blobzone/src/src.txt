@@ -1,5 +1,0 @@
-hedge.bmp
-blobcold.bmp
-bg.jpg
-blob.bmp
-blobgame.t
