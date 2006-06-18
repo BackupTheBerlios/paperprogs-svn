@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2006 ultramancool <ultramancool@gmail.com>
+ * Blobzone and all of its content is Copyright (c) 2006 of Paperprogs Inc*
+ * *Unless otherwise stated
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
