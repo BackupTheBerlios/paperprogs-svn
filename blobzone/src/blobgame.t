@@ -38,9 +38,11 @@ Input.Pause
 Input.KeyDown (chars)
 if chars ('a') then 
     blobyname := "blob.bmp"
-elsif chars ('b') then
+end if
+if chars ('b') then
     blobyname := "blobcold.bmp"
 end if
+
 cls
 
 var x, y, s, laserx, lasery, shoot, allowshot, gobullet, gobulletr : int
@@ -56,16 +58,16 @@ shoot := 0
   procedure coldethed (xh : int, yh : int)
     if x + s > xh - s and x - s < xh + s and y + s > yh - s and y - s < yh + s then
 	if x > xh + s then
-	    x := x + 10
+	    x := x + 15
 	end if
 	if y > yh + s then
-	    y := y + 10
+	    y := y + 15
 	end if
 	if y < yh + s then
-	    y := y - 10
+	    y := y - 15
 	end if
 	if x < xh + s then
-	    x := x - 10
+	    x := x - 15
 	end if
     end if
 end coldethed
@@ -75,19 +77,19 @@ loop
     Input.KeyDown (chars)
 
     if chars (KEY_UP_ARROW) then
-	y := y + 10
+	y := y + 15
 	gobullet := 1
     end if
     if chars (KEY_RIGHT_ARROW) then
-	x := x + 10
+	x := x + 15
 	gobullet := 2
     end if
     if chars (KEY_LEFT_ARROW) then
-	x := x - 10
+	x := x - 15
 	gobullet := 3
     end if
     if chars (KEY_DOWN_ARROW) then
-	y := y - 10
+	y := y - 15
 	gobullet := 4
     end if
     if chars (' ') and allowshot = 1 then
@@ -103,22 +105,20 @@ loop
     if gobulletr = 2 or gobulletr = 3 then
     drawline (laserx + 20, lasery + 20, laserx + 55, lasery + 20, red)
     end if
-	%        drawline (laserx + 21, lasery + 30, laserx + 21, lasery + 55, red)
-	% drawline (laserx + 19, lasery + 30, laserx + 19, lasery + 55, red)
 	allowshot := 0
     end if
     if lasery < 600 then
 	if gobulletr = 1 then
-	    lasery := lasery + 10
+	    lasery := lasery + 15
 	end if
 	if gobulletr = 2 then
-	    laserx := laserx + 10
+	    laserx := laserx + 15
 	end if
 	if gobulletr = 3 then
-	    laserx := laserx - 10
+	    laserx := laserx - 15
 	end if
 	if gobulletr = 4 then
-	    lasery := lasery - 10
+	    lasery := lasery - 15
 	end if
     else
 	allowshot := 1
