@@ -1,3 +1,4 @@
+
 /*
  * Blobzone and all of its content is Copyright (c) 2006 Paper Programs unless otherwise stated
  *
@@ -14,7 +15,7 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-var blobyname : string 
+var blobyname : string
 setscreen ("nocursor,offscreenonly, graphics:800, 600")
 cls
 
@@ -26,21 +27,37 @@ View.Update
 Pic.ScreenLoad ("char.bmp", 0, 0, picCopy)
 Pic.ScreenLoad ("blob.bmp", 50, 450, picMerge)
 Pic.ScreenLoad ("blobcold.bmp", 50, 270, picMerge)
+Pic.ScreenLoad ("blob-1.bmp", 50, 150, picMerge)
+Pic.ScreenLoad ("blob-2.bmp", 550, 450, picMerge)
+Pic.ScreenLoad ("blob-3.bmp", 550, 270, picMerge)
+Pic.ScreenLoad ("blob-4.bmp", 550, 150, picMerge)
 var chars : array char of boolean
 var font4 : int
 font4 := Font.New ("Palatino:12:Bold,Italic")
 assert font4 > 0
-Font.Draw ("Press a key to choose a blob", 250, 500, font4, black)
+Font.Draw ("Press a key to choose a blob", 250, 400, font4, black)
 Font.Draw ("a) The Original Blob", 50, 400, font4, blue)
 Font.Draw ("b) The Blob, with a cold", 50, 230, font4, blue)
+Font.Draw ("c) The Blob, stunned", 50, 120, font4, blue)
+Font.Draw ("d) The cyclo-blob", 550, 400, font4, blue)
+Font.Draw ("e) War Blob", 550, 230, font4, blue)
+Font.Draw ("f) Teh cool Blob", 550, 120, font4, blue)
 View.Update
 Input.Pause
 Input.KeyDown (chars)
-if chars ('a') then 
-    blobyname := "blob.bmp"
+if chars ('a') then
+   blobyname := "blob.bmp"
 end if
 if chars ('b') then
-    blobyname := "blobcold.bmp"
+   blobyname := "blobcold.bmp"
+   elsif chars ('c') then
+   blobyname := "blob-1.bmp"
+       elsif chars ('d') then
+   blobyname := "blob-2.bmp"
+       elsif chars ('e') then
+   blobyname := "blob-3.bmp"
+       elsif chars ('f') then
+   blobyname := "blob-4.bmp"
 end if
 
 cls
@@ -69,12 +86,12 @@ shoot := 0
 	if x < xh + s then
 	    x := x - 15
 	end if
-    end if
+       end if
 end coldethed
 
 loop
-    Pic.ScreenLoad ("bg.bmp", 0, 0, picCopy)
-    Input.KeyDown (chars)
+   Pic.ScreenLoad ("bg.bmp", 0, 0, picCopy)
+   Input.KeyDown (chars)
 
     if chars (KEY_UP_ARROW) then
 	y := y + 15
@@ -124,34 +141,30 @@ loop
 	allowshot := 1
     end if
 
-    if laserx > 800 or lasery < 0 or laserx < 0 then
-	allowshot := 1
-    end if
-    if y < 0 then
-	y := 0
-    end if
-    if x > 800 - 46 then
-	x := 800 - 46
-    end if
-    if y > 600 - 49 then
-	y := 600 - 49
-    end if
-    if x < 0 then
-	x := 0
-    end if
+   if laserx > 800 or lasery < 0 or laserx < 0 then
+       allowshot := 1
+   end if
+   if y < 0 then
+       y := 0
+   end if
+   if x > 800 - 46 then
+       x := 800 - 46
+   end if
+   if y > 600 - 49 then
+       y := 600 - 49
+   end if
+   if x < 0 then
+       x := 0
+   end if
 
-    for p : 1 .. 5
-	for i : 1 .. 10
-	    Pic.ScreenLoad ("hedge2.bmp", 130 * p, 50 * i, picMerge)
+   for p : 1 .. 5
+       for i : 1 .. 10
+	   Pic.ScreenLoad ("hedge2.bmp", 130 * p, 50 * i, picMerge)
 
-	    coldethed (130 * p, 50 * i)
-	end for
-    end for
-    Pic.ScreenLoad (blobyname, x, y, picMerge)
-    colorback (black)
-    View.Update
+	   coldethed (130 * p, 50 * i)
+       end for
+   end for
+   Pic.ScreenLoad (blobyname, x, y, picMerge)
+   colorback (black)
+   View.Update
 end loop
-
-
-
-
