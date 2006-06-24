@@ -40,13 +40,13 @@ sub parseit {
         }
     }
     for (@new) {
-        print $_ . "\n ATTACKING!";
+        print $_ . "... ATTACKING!\n";
         attack($_);
         }
 }
 print "\n";
 
 sub attack {
-    my $crackattack = $browser->get( "http://www.slavehack.com/index2.php?page=internet&gow= $_[1] &action=crack" );
+    my $crackattack = $browser->get( "http://www.slavehack.com/index2.php?page=internet&gow=$_[0]&action=crack" );
     if ($crackattack->content =~ /parseInt\(i\)\/(.*)\)\*100\)+/) {print $1}
 }
