@@ -4,9 +4,14 @@ use LWP 5.64; # Loads all important LWP classes, and makes
 use HTTP::Cookies;
 use warnings;
 my $url; my $response; my $fingy;
-my $browser = LWP::UserAgent->new;
+our $browser = LWP::UserAgent->new;
+our $testythingy;
+our @new;
+our %usedhash;
+our %attackedhash;
+our $i;
 $browser->cookie_jar( {} );
-$browser->agent('MSIE :D');
+$browser->agent('Mozilla/5.0 (compatible; googlebot/3.14195; +http://www.1337w4R3Z53RVER.com/bot.html)');
 $url = 'http://www.slavehack.com/login.php';
 $browser->get( $url );
  $response = $browser->post( $url,
@@ -15,38 +20,64 @@ $browser->get( $url );
      'loginpas' => 'exalisswag',
    ],
  );
-#print $response->content;
-my $url2 = 'http://www.slavehack.com/index2.php?page=internet&gow=246.185.15.208&action=log';
- my $responsey = $browser->post( $url2,
+#print $response->content;.
+checklog('http://www.slavehack.com/index2.php?page=logs', '');
+sub checklog {
+my $url2 = $_[0];
+ my $responsey = $browser->get( $url2,
    [
-     'loginpass' => 'xn4hxjde',
+     'loginpass' => $_[1],
    ],
  );
-my $response3 = $browser->get( $url2 );
-parseit();
+our $response3 = $browser->get( $url2 );
+parseit( $response3->content );
 #print $response3->content;
-our $testythingy;
-our @new;
-our %usedhash;
+
+}
+print "\n";
+
+sub attack {
+    my $loginpage = $browser->get( "http://www.slavehack.com/index2.php?page=internet&gow=$_[0]&action=login" );
+    if ($loginpage =~ /<tr><td>Password<td><input name=loginpass type=password value='(.*)'>/) {
+        our $tehpasswad = $1
+    } else {
+    my $crackattack = $browser->get( "http://www.slavehack.com/index2.php?page=internet&gow=$_[0]&action=crack" );
+    if ($crackattack->content =~ /parseInt\(i\)\/(.*)\)\*100\)+/) {
+        print "Time to crack " . $1/2 . "s\n";
+        #if ($1/2 <= 60) {sleep $1/2} else {print "skipping"};
+        sleep $1/2;
+        my $responses = $browser->post( "http://www.slavehack.com/index2.php?page=internet&gow=$_[0]&action=crack",
+   [
+     'bits' => 1,
+     'up' => 1,
+   ],
+    );
+        if ($responses->content =~ /The password for .* is <B>(.*)<\/B> \.\.\.make/) {print $1 . "\n"; our $tehpasswad = $1} else {print "failed to get password\n"}
+            } else {print "failed to get time\n"} }
+                my $response9 = $browser->post( "http://www.slavehack.com/index2.php?page=internet&gow=$_[0]&action=login",
+   [
+     'loginpass' => $,
+   ],
+    );
+        my $response8 = $browser->post( "http://www.slavehack.com/index2.php?page=internet&gow=$_[0]&action=logs" );
+        #our @new = ();
+        parseit( $response8->content );
+        #$i = 0;
+}
+our @all;
 sub parseit {
-    my $crip = $response3->content;
-    my @all = $crip =~ m{(\d*\.\d*\.\d*\.\d*)}g;
+    @all = $_[0] =~ m{(\d*\.\d*\.\d*\.\d*)}g;
     for (@all) {
         $testythingy = $_;
-        if ($usedhash{$_}) {
+        if ($usedhash{$testythingy}) {
         } else {
             push(@new, $testythingy);
             $usedhash{$testythingy} = 1;
         }
     }
     for (@new) {
-        print $_ . "... ATTACKING!\n";
-        attack($_);
+        our $leet = $_;
+         $attackedhash{80.210.249.116} = 1;
+        if (!($attackedhash{$leet})) {print "IP: $leet \n"; attack($leet); $attackedhash{$leet} = 1;}# else {print "done already\n"}
         }
-}
-print "\n";
-
-sub attack {
-    my $crackattack = $browser->get( "http://www.slavehack.com/index2.php?page=internet&gow=$_[0]&action=crack" );
-    if ($crackattack->content =~ /parseInt\(i\)\/(.*)\)\*100\)+/) {print $1}
 }
