@@ -37,10 +37,6 @@ parseit( $response3->content );
 print "\n";
 
 sub attack {
-    my $loginpage = $browser->get( "http://www.slavehack.com/index2.php?page=internet&gow=$_[0]&action=login" );
-    if ($loginpage =~ /<tr><td>Password<td><input name=loginpass type=password value='(.*)'>/) {
-        our $tehpasswad = $1
-    } else {
     my $crackattack = $browser->get( "http://www.slavehack.com/index2.php?page=internet&gow=$_[0]&action=crack" );
     if ($crackattack->content =~ /parseInt\(i\)\/(.*)\)\*100\)+/) {
         print "Time to crack " . $1/2 . "s\n";
@@ -52,17 +48,17 @@ sub attack {
      'up' => 1,
    ],
     );
-        if ($responses->content =~ /The password for .* is <B>(.*)<\/B> \.\.\.make/) {print $1 . "\n"; our $tehpasswad = $1} else {print "failed to get password\n"}
-            } else {print "failed to get time\n"} }
+        if ($responses->content =~ /The password for .* is <B>(.*)<\/B> \.\.\.make/) {print $1 . "\n"; our $creep = $1} else {print "failed to get password\n"}
                 my $response9 = $browser->post( "http://www.slavehack.com/index2.php?page=internet&gow=$_[0]&action=login",
    [
-     'loginpass' => $,
+     'loginpass' => $creep,
    ],
     );
         my $response8 = $browser->post( "http://www.slavehack.com/index2.php?page=internet&gow=$_[0]&action=logs" );
         #our @new = ();
         parseit( $response8->content );
         #$i = 0;
+    } else {print "failed to get time\n"}
 }
 our @all;
 sub parseit {
@@ -77,7 +73,6 @@ sub parseit {
     }
     for (@new) {
         our $leet = $_;
-         $attackedhash{80.210.249.116} = 1;
         if (!($attackedhash{$leet})) {print "IP: $leet \n"; attack($leet); $attackedhash{$leet} = 1;}# else {print "done already\n"}
         }
 }
