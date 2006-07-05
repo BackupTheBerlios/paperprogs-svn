@@ -1,4 +1,3 @@
-
 /*
  * Blobzone and all of its content is Copyright (c) 2006 Paper Programs unless otherwise stated
  *
@@ -46,18 +45,18 @@ View.Update
 Input.Pause
 Input.KeyDown (chars)
 if chars ('a') then
-   blobyname := "blob.bmp"
+    blobyname := "blob.bmp"
 end if
 if chars ('b') then
-   blobyname := "blobcold.bmp"
-   elsif chars ('c') then
-   blobyname := "blob-1.bmp"
-       elsif chars ('d') then
-   blobyname := "blob-2.bmp"
-       elsif chars ('e') then
-   blobyname := "blob-3.bmp"
-       elsif chars ('f') then
-   blobyname := "blob-4.bmp"
+    blobyname := "blobcold.bmp"
+elsif chars ('c') then
+    blobyname := "blob-1.bmp"
+elsif chars ('d') then
+    blobyname := "blob-2.bmp"
+elsif chars ('e') then
+    blobyname := "blob-3.bmp"
+elsif chars ('f') then
+    blobyname := "blob-4.bmp"
 end if
 
 cls
@@ -72,7 +71,7 @@ x := 100
 y := 100
 s := 25
 shoot := 0
-  procedure coldethed (xh : int, yh : int)
+procedure coldethed (xh : int, yh : int)
     if x + s > xh - s and x - s < xh + s and y + s > yh - s and y - s < yh + s then
 	if x > xh + s then
 	    x := x + 15
@@ -86,12 +85,12 @@ shoot := 0
 	if x < xh + s then
 	    x := x - 15
 	end if
-       end if
+    end if
 end coldethed
 
 loop
-   Pic.ScreenLoad ("bg.bmp", 0, 0, picCopy)
-   Input.KeyDown (chars)
+    Pic.ScreenLoad ("bg.bmp", 0, 0, picCopy)
+    Input.KeyDown (chars)
 
     if chars (KEY_UP_ARROW) then
 	y := y + 15
@@ -116,12 +115,12 @@ loop
 	gobulletr := gobullet
     end if
     if shoot = 1 then
-    if gobulletr = 1 or gobulletr = 4 then
-    drawline (laserx + 20, lasery + 30, laserx + 20, lasery + 55, red)
-    end if
-    if gobulletr = 2 or gobulletr = 3 then
-    drawline (laserx + 20, lasery + 20, laserx + 55, lasery + 20, red)
-    end if
+	if gobulletr = 1 or gobulletr = 4 then
+	    drawline (laserx + 20, lasery + 30, laserx + 20, lasery + 55, red)
+	end if
+	if gobulletr = 2 or gobulletr = 3 then
+	    drawline (laserx + 20, lasery + 20, laserx + 55, lasery + 20, red)
+	end if
 	allowshot := 0
     end if
     if lasery < 600 then
@@ -141,30 +140,30 @@ loop
 	allowshot := 1
     end if
 
-   if laserx > 800 or lasery < 0 or laserx < 0 then
-       allowshot := 1
-   end if
-   if y < 0 then
-       y := 0
-   end if
-   if x > 800 - 46 then
-       x := 800 - 46
-   end if
-   if y > 600 - 49 then
-       y := 600 - 49
-   end if
-   if x < 0 then
-       x := 0
-   end if
+    if laserx > 800 or lasery < 0 or laserx < 0 then
+	allowshot := 1
+    end if
+    if y < 0 then
+	y := 0
+    end if
+    if x > 800 - 46 then
+	x := 800 - 46
+    end if
+    if y > 600 - 49 then
+	y := 600 - 49
+    end if
+    if x < 0 then
+	x := 0
+    end if
 
-   for p : 1 .. 5
-       for i : 1 .. 10
-	   Pic.ScreenLoad ("hedge2.bmp", 130 * p, 50 * i, picMerge)
+    for p : 1 .. 5
+	for i : 1 .. 10
+	    Pic.ScreenLoad ("hedge2.bmp", 130 * p, 50 * i, picMerge)
 
-	   coldethed (130 * p, 50 * i)
-       end for
-   end for
-   Pic.ScreenLoad (blobyname, x, y, picMerge)
-   colorback (black)
-   View.Update
+	    coldethed (130 * p, 50 * i)
+	end for
+    end for
+    Pic.ScreenLoad (blobyname, x, y, picMerge)
+    colorback (black)
+    View.Update
 end loop
