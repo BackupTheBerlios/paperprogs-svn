@@ -1,0 +1,13 @@
+PHVault2 Readme
+PHVault2 Version 1.0
+
+Licence: COMPLETLY OPEN
+
+Setup:
+chmod config.php 777
+Run install.php
+chmod config.php 664
+
+Info:
+To make a file reqire a login, add this code to the top of a page: <?php include 'lock.php';?>
+To make a page have a login screen, add this code where you want it <?php include 'login.php';?>
