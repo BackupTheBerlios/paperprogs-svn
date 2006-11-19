@@ -157,8 +157,11 @@ if ($inputyt =~ /^\!tell (.*) !/) { $destinat = $1; $inputyt =~ s/^\!tell (.*) !
 	if ($inputyt =~ /^\!8ball (.+)/) {
 		$send_text = ball($1, $nick);
 	}
+	if ($inputyt =~ /^\!rnd (.+)/) {
+		$send_text = rnmbr($1, $nick);
+	}
 	if ($inputyt =~ /^\!tinyurl (.+)/) {
-		$send_text = turlbot($1, $nick);
+	$send_text = turlbot($1, $nick);
 	}
 	elsif ($inputyt =~ /($RE{URI}{HTTP})/) {
 		$send_text = turlbot($1, $nick);
@@ -249,7 +252,7 @@ $url2 = 'http://tinyurl.com/create.php';
      'url' => $input,
    ],
  );
-print $response2->content;
+#print $response2->content;
 if ($response2->content =~ /<blockquote><b>(.*)<\/b><br><small>/) {return $1;} else {return "Uh oh $nick! Something went terribly wrong with the TinyURL creation :-(.";}
 }
 	
@@ -288,4 +291,15 @@ my $length = $#answers + 1;
 $length = rand($length);
 $length = int $length;
 return $answers[$length]; 
+}
+
+sub rnmbr {
+my $input = shift;
+my $user = shift;
+my $rnd="Must be a Number Value";
+if ($input + 0 eq $input)
+{
+$rnd = int(rand($input))+1;
+}
+return $rnd;
 }
