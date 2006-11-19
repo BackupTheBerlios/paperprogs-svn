@@ -35,7 +35,7 @@ my $all = $dbh->selectall_arrayref("SELECT * FROM cards");
 foreach my $row (@$all) {
   my ($id, $quest, $ans) = @$row;
   print "<div id='card'>";
-  print "$quest\n <br>";
+  print "$id . $quest\n <br>";
 #  print "<p>Click this to show the answer</p>";
 #  print "<div class='tooltip'>";
   print "<hr>";
