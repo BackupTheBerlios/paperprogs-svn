@@ -28,7 +28,7 @@ use strict;
 use HTML::Strip;
 use DBI;
 my $dbh = DBI->connect("dbi:SQLite:op.db", "", "", {RaiseError => 1, AutoCommit => 1});
-
+my $ver="0.111906";
 # Shove some globals here
 our @opinions;
 our $tf = HTML::Strip->new();
@@ -38,6 +38,7 @@ our $browser = LWP::UserAgent->new;
 our $browser2 = LWP::UserAgent->new;
 our $wrapper = new Text::Wrapper(columns => 400);
 our $botnick = "yapbib";
+our $last_text = "";
 
   my $irc = POE::Component::IRC->spawn( 
   
@@ -69,6 +70,7 @@ sub irc_001 {
     print "Connected to ", $poco_object->server_name(), "\n";
     my @channels=["\#phoenix"];
     $kernel->post( $sender => join => '#phoenix' ) for @channels || die $!;
+	sendout($kernel, $sender, '#phoenix', $tf->parse('Hi everybody')); #"Fix" for the ad spamming block
     undef;
 }
 
@@ -87,8 +89,10 @@ sub irc_join {
 sub irc_public {
    my ($kernel,$sender,$who, $tochan,$what) = @_[KERNEL,SENDER,ARG0,ARG1,ARG2];
     my $nick = ( split /!/, $who )[0];
+
     for (@{$tochan}){ parse($kernel, $sender, $_, $what, $nick); }
     undef;
+
 }
   
 sub irc_part {
@@ -96,7 +100,7 @@ sub irc_part {
     my $nick = ( split /!/, $who )[0];
     if ($what eq "") {$what=" ";}
     undef;
-    if ($nick eq "Livia") {print "Channel(Example: #help): ";
+    if ($nick eq "yabbib") {print "Channel(Example: #help): ";
     chomp (my $opt3 = <>);
     if ($opt3 !~ m/\A#/) {$opt3="$opt3";print "Using $opt3\n";}
     print "$opt3\n"; $kernel->post($sender=>join=>$opt3);}
@@ -160,12 +164,21 @@ if ($inputyt =~ /^\!tell (.*) !/) { $destinat = $1; $inputyt =~ s/^\!tell (.*) !
 	if ($inputyt =~ /^\!rnd (.+)/) {
 		$send_text = rnmbr($1, $nick);
 	}
+	if ($inputyt =~ /^\!help/) {
+		$send_text = help($1, $nick);
+	}
+	if ($inputyt =~ /^\!commands/) {
+		$send_text = cmds($1, $nick);
+	}	
 	if ($inputyt =~ /^\!tinyurl (.+)/) {
 	$send_text = turlbot($1, $nick);
 	}
 	elsif ($inputyt =~ /($RE{URI}{HTTP})/) {
 		$send_text = turlbot($1, $nick);
 	} 
+
+	
+	
 	if ($send_text) { sendout($kernel, $sender, $destinat, $tf->parse($send_text)); }
 	$tf->eof;
 	$send_text = "";
@@ -174,8 +187,12 @@ if ($inputyt =~ /^\!tell (.*) !/) { $destinat = $1; $inputyt =~ s/^\!tell (.*) !
 sub sendout {
 my $kernel = $_[0];
 my $sender = $_[1];
+if (!($_[3] eq $last_text))  {
 	$kernel->post( $sender => privmsg => $_[2] => $_[3] );
-}
+	$last_text=$_[3];
+	}
+	}
+
 
 sub takenote {
 my $hash;
@@ -286,7 +303,7 @@ sub urbanbot {
 sub ball {
  my $input = shift;
  my $user = shift;
-my @answers = ("$user: You don't deserve the answer.", "$user: Google will tell you.", "$user: your IRC client is not sufficiently AJAX-y to view this answer", "$user, of course!", "$user: NEVAH!", "$user: Why the hell are you asking me?!?", "$user: 42", "$user: Please Insert Coin");
+my @answers = ("$user: You don't deserve the answer.", "$user: Google will tell you.", "$user: your IRC client is not sufficiently AJAX-y to view this answer", "$user: of course!", "$user: NEVAH!", "$user: Why the hell are you asking me?!?", "$user: 42", "$user: Please Insert Coin");
 my $length = $#answers + 1;
 $length = rand($length);
 $length = int $length;
@@ -302,4 +319,18 @@ if ($input + 0 eq $input)
 $rnd = int(rand($input))+1;
 }
 return $rnd;
+}
+
+sub help {
+my $input = shift;
+my $user = shift;
+my $msg="*YabBib Version $ver*     Run \'!commands\' to recieve a list of commands.";
+return $msg;
+}
+
+sub cmds {
+my $input = shift;
+my $user = shift;
+my $output="killself tell noslang react unreact blankeact google explain mentanote shownote urban 8ball rnd help commands tinyurl";
+return $output;
 }
