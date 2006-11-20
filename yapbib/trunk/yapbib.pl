@@ -68,9 +68,9 @@ sub irc_001 {
     my ($kernel,$sender) = @_[KERNEL,SENDER];
     my $poco_object = $sender->get_heap();
     print "Connected to ", $poco_object->server_name(), "\n";
-    my @channels=["\#phoenix"];
-    $kernel->post( $sender => join => '#phoenix' ) for @channels || die $!;
-	sendout($kernel, $sender, '#phoenix', $tf->parse('Hi everybody')); #"Fix" for the ad spamming block
+    my @channels=["\#paperprogs"];
+    $kernel->post( $sender => join => '#paperprogs' ) for @channels || die $!;
+	sendout($kernel, $sender, '#paperprogs', $tf->parse('Hi everybody')); #"Fix" for the ad spamming block
     undef;
 }
 
