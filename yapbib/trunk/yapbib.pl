@@ -130,7 +130,7 @@ my $send_text;
 #if ($destinat eq $botnick) { our $destinat=$nick }
 if ($inputyt =~ /^\!tell (.*) !/) { $destinat = $1; $inputyt =~ s/^\!tell (.*) !//; $inputyt = "!" . $inputyt;}
 #if ($destinat eq '') { $destinat = $crip }
-	if ($inputyt =~ /^\!killself/) { exit; }
+#	if ($inputyt =~ /^\!killself/) { exit; }
 	if ($inputyt =~ /^\!noslang (.+)/) {
 		$send_text = slkill($1, $nick);
 	}
