@@ -27,8 +27,9 @@ use POE qw(Component::IRC);
 use strict;
 use HTML::Strip;
 use DBI;
+
 my $dbh = DBI->connect("dbi:SQLite:op.db", "", "", {RaiseError => 1, AutoCommit => 1});
-my $ver="0.111906";
+my $ver="SVN";
 # Shove some globals here
 our @opinions;
 our $tf = HTML::Strip->new();
@@ -142,7 +143,7 @@ if ($inputyt =~ /^\!tell (.*) !/) { $destinat = $1; $inputyt =~ s/^\!tell (.*) !
 	if ($inputyt =~ /^\!blankreact (.+)/) {
 		$send_text = blankall($1, $nick);
 	}
-	if (getreplyfromdb($inputyt)) { $send_text = getreplyfromdb($inputyt); }
+	if (getreplyfromdb($inputyt)) { $send_text = getreplyfromdb($inputyt, $nick); }
 	if ($inputyt =~ /^\!google (.+)/) {
 		$send_text = googlebot($1, $nick, 0);
 	}
@@ -187,25 +188,32 @@ if ($inputyt =~ /^\!tell (.*) !/) { $destinat = $1; $inputyt =~ s/^\!tell (.*) !
 sub sendout {
 my $kernel = $_[0];
 my $sender = $_[1];
-if (!($_[3] eq $last_text))  {
-	$kernel->post( $sender => privmsg => $_[2] => $_[3] );
-	$last_text=$_[3];
-	}
-	}
+our $user = $_[2];
+my @messages = split ('\n', $_[3]);
+for (@messages) {
+#if ($_[3] ne $last_text)  {
+	$kernel->post( $sender => privmsg => $user => $_ );
+#	$last_text=$_[3];
+}
+#}
+}
 
 
 sub takenote {
-my $hash;
-my %hash;
-if ($hash{ $_[1] } eq "") { my %hash = (); }
-	$hash{ $_[1] } = $hash{ $_[1] } . "\n" . $_[0];
+my $input = shift;
+my $nick = shift;
+$dbh->do("INSERT INTO notes VALUES ('$nick', '$input')");
 }
 
 sub shownote {
-my $hash;
-my %hash;
-if ($hash{ $_[1] } eq "") { my %hash = (); }
-return $hash{ $_[1] };
+my $tehshit;
+my $input = $dbh->quote(shift);
+my $nick = shift;
+my $all = $dbh->selectall_arrayref("SELECT msg FROM notes WHERE user='$nick'");
+foreach my $row (@$all) {
+  $tehshit = @$row[0] . "\n" . $tehshit;
+}
+return $tehshit;
 }
 
 sub opinionset {
