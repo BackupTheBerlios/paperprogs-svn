@@ -43,11 +43,11 @@ our $last_text = "";
 
   my $irc = POE::Component::IRC->spawn( 
   
-  	server 		=> 'irc.anoxs.net',
+  	server 		=> 'ultra.1.vg',
 	port		=> '6667',
 	nick		=> $botnick,
 	ircname	=> '!slang term',
-	username	=> 'yapbib2',
+	username	=> 'yapbib',
    ) or die "Unable to connect to irc server\n $!\n";
 POE::Session->create(
         package_states => [
@@ -69,9 +69,9 @@ sub irc_001 {
     my ($kernel,$sender) = @_[KERNEL,SENDER];
     my $poco_object = $sender->get_heap();
     print "Connected to ", $poco_object->server_name(), "\n";
-    my @channels=["\#phoenix"];
-    $kernel->post( $sender => join => '#phoenix' ) for @channels || die $!;
-	sendout($kernel, $sender, '#phoenix', $tf->parse('Hi everybody')); #"Fix" for the ad spamming block
+    my @channels=["\#Lobby"];
+    $kernel->post( $sender => join => '#Lobby' ) for @channels || die $!;
+	sendout($kernel, $sender, '#Lobby', $tf->parse('Hey everybody I am a chatbot run !help for more info.')); #"Fix" for the ad spamming block
     undef;
 }
 
@@ -130,7 +130,7 @@ my $send_text;
 #if ($destinat eq $botnick) { our $destinat=$nick }
 if ($inputyt =~ /^\!tell (.*) !/) { $destinat = $1; $inputyt =~ s/^\!tell (.*) !//; $inputyt = "!" . $inputyt;}
 #if ($destinat eq '') { $destinat = $crip }
-#	if ($inputyt =~ /^\!killself/) { exit; }
+	#if ($inputyt =~ /^\!killself/) { exit; }
 	if ($inputyt =~ /^\!noslang (.+)/) {
 		$send_text = slkill($1, $nick);
 	}
