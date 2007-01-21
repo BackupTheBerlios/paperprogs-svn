@@ -43,12 +43,8 @@ our $botnick = "yapbib";
 our $last_text = "";
 
   my $irc = POE::Component::IRC->spawn( 
-  
-<<<<<<< .mine
-  	server 		=> 'localhost',
-=======
+ 
   	server 		=> 'ultra.1.vg',
->>>>>>> .r213
 	port		=> '6667',
 	nick		=> $botnick,
 	ircname	=> '!slang term',
@@ -74,15 +70,11 @@ sub irc_001 {
     my ($kernel,$sender) = @_[KERNEL,SENDER];
     my $poco_object = $sender->get_heap();
     print "Connected to ", $poco_object->server_name(), "\n";
-<<<<<<< .mine
-    my @channels=["\#Lobby"];
-    $kernel->post( $sender => join => '#Lobby' ) for @channels || die $!;
-	sendout($kernel, $sender, '#Lobby', $tf->parse('Hi everybody')); #"Fix" for the ad spamming block
-=======
+
     my @channels=["\#Lobby"];
     $kernel->post( $sender => join => '#Lobby' ) for @channels || die $!;
 	sendout($kernel, $sender, '#Lobby', $tf->parse('Hey everybody I am a chatbot run !help for more info.')); #"Fix" for the ad spamming block
->>>>>>> .r213
+
     undef;
 }
 

@@ -3,11 +3,12 @@ use warnings;
 use POE qw(Component::IRC);
 
 my $good=0;
-my $name="0";
-my $uname="0";
+#my $name="0";
+#my $uname="0";
 my @owners = ("ultra", "aldre-neo", "Jay");
 my @fullowners = ("ultra", "aldre-neo");
 my @subscribers = ("aldre-neo", "ultra");
+my @fsubscribers = ("aldre-neo", "ultra");
 print "Server: ";
 chomp (my $opt1 = <>);
 print "Port(Usually 6667): ";
@@ -39,7 +40,7 @@ my $irc = POE::Component::IRC->spawn(
 
 POE::Session->create(
     package_states => [
-           'main' => [ qw( _start irc_001 irc_public irc_join irc_part irc_msg irc_error) ],
+           'main' => [ qw( _start irc_ctcp_action irc_001 irc_public irc_join irc_part irc_msg irc_error) ],
         ],
     heap => { irc => $irc },
 );
@@ -74,7 +75,7 @@ sub irc_001 {
 sub irc_error {
     my ($kernel,$sender,$error) = @_[KERNEL,SENDER,ARG0];
 
-    &log($error."\n");
+    &log($kernel,$sender,$error."\n");
     undef;
 }
 
@@ -84,24 +85,19 @@ sub irc_join {
     my $nick = ( split /!/, $who )[0];
 	
 	#print the text
-	&log("$nick has joined the channel\n");
+	&log($kernel,$sender,"$nick has joined the channel\n");
     undef;
 }
   
 sub irc_public {
 	my ($kernel,$sender,$who,$what) = @_[KERNEL,SENDER,ARG0,ARG2];
-	if ($what eq "!livia_debug") {
-		$kernel->post( $sender => privmsg => $opt3 =>
-			"opt1 is $opt1|opt2 is $opt2|nopt3 is $opt3 |msg_uname is $uname|msg_name is $name"
-		);
-		&log("Bot client sent debug to channel\n");
-	}
+
 	my $nick = ( split /!/, $who )[0];
 	# this is what was said in the event
 	$what=~s/(.)/{ord($1)<32 ? '' :$1}/ge;
-	
+
 	#print the text
-	&log("$nick> $what\n");
+	&log($kernel,$sender,"$nick> $what\n");
     undef;
 }
   
@@ -110,7 +106,7 @@ sub irc_part {
     my $nick = ( split /!/, $who )[0];
 
 	#print the text
-	&log("$nick has left the channel\n");
+	&log($kernel,$sender,"$nick has left the channel\n");
     undef;
 #	if ($nick eq "Livia") {print "Channel(Example: #help): ";
 #chomp (my $opt3 = <>);
@@ -118,12 +114,22 @@ sub irc_part {
 #print "$opt3\n"; $kernel->post($sender=>join=>$opt3);}
 }
 
+
+sub irc_ctcp_action {
+	my ($kernel,$sender,$who,$where,$what) = @_[KERNEL,SENDER,ARG0,ARG1,ARG2];
+	my $nick = ( split /!/, $who )[0];
+	# this is what was said in the event
+	$what=~s/(.)/{ord($1)<32 ? '' :$1}/ge;
+	#print the text
+	&log($kernel,$sender,"***$nick> $what***\n");
+    undef;
+}
 sub irc_quit {	
     my ($kernel,$sender,$who,$what) = @_[KERNEL,SENDER,ARG0,ARG2];
     my $nick = ( split /!/, $who )[0];
 	
 	#print the text
-	&log("$nick has left the server '$what'\n");
+	&log($kernel,$sender,"$nick has left the server '$what'\n");
     undef;
 }
 
@@ -134,35 +140,42 @@ sub irc_msg {
     my $nick = ( split /!/, $who )[0];
 	my $subs = "";
 	foreach $subs (@subscribers) {
-		$kernel->post( $sender => privmsg => $subs => "Livia: $nick> $what" );
+		$kernel->post( $sender => privmsg => $subs => "Livia: $nick says $what" );
 	}
-	&log("Private: $nick says $what\n");
-	if ($nick eq 'aldre-neo') {
-		if ($rname eq "1") {
-			if ($what =~ m/!respond/i){
-				$what =~ m/!respond *(.*)/;
-				$kernel->post( $sender => privmsg => $runame => "$1" );	
-				&log ("Responce $1 was sent to $runame\n");
-				$runame="";
-				$rname="";
-			}
-		}
-	}
+	&log($kernel,$sender,"Private: $nick says $what\n");
+
 	my $owner;
 	my $op;
 	foreach $owner (@owners) {
+
+	
 		if ($nick eq $owner && $what =~ m/\A9191/) {
 			if ( $what =~ m/!say/i )  {
 				$what =~ m/!say *(.*)/;
 				$kernel->post( $sender => privmsg => $opt3 => "$1");
-				&log("Bot client sent message> $1\n");
+				&log($kernel,$sender,"Bot client sent message> $1\n");
 			}
 			if ( $what =~ m/!log/i )  {
 				$what =~ m/!log *(.*)/;
-				&log("Bot Client Log: $1\n");
+				&log($kernel,$sender,"Bot Client Log: $1\n");
 			}
 		
 			foreach $op (@fullowners) {
+			
+				foreach $subs (@subscribers) {
+					if ($nick eq $subs) {
+						if ($rname eq "1") {
+							if ($what =~ m/!respond/i){
+								$what =~ m/!respond *(.*)/;
+								$kernel->post( $sender => privmsg => $runame => "$1" );	
+								&log ("Responce $1 was sent to $runame\n");
+								$runame="";
+								$rname="";
+							}
+						}
+					}
+				}
+			
 				if ($nick eq $op) {
 				#REMOVED UNTILL I ADD RE-ENTER CHANNE: >>>>CODE if ( $what =~ m/!bye/i )  { $kernel->post($sender=>part=>$opt3);}<<<<<
 					if ( $what =~ m/!die/i )  { 
@@ -173,58 +186,61 @@ sub irc_msg {
 					if ( $what =~ m/!nick/i ) {
 						$what =~ m/!nick *(.*)/;
 						$kernel->post($sender => nick => "$1"); 
-						&log("Bot client changed nick to $1\n");}
-						if ( $what =~ m/!own/i )  {
+						&log($kernel,$sender,"Bot client changed nick to $1\n");}
+						
+					if ( $what =~ m/!own/i )  {
 						$what =~ m/!own *(.*)/;
-						&log("$1 is now an owner\n");
+						&log($kernel,$sender,"$1 is now an owner\n");
 						push(@owners, $1);
 					}
 
 					if ( $what =~ m/!op/i )   { 
 						$what =~ m/!op *(.*)/;
-						&log("$1 is now an op\n");
+						&log($kernel,$sender,"$1 is now an op\n");
 						push(@fullowners, $1);
 					}
-					if ( $what =~ m/!mode/i )   { 
-						$what =~ m/!mode (.*) (.*) (.*)/;
-						$irc->yield( 'mode' => $1 => $2 => $3 );
-						&log("$1 $2\n");
-					}
-
-					if ( $what =~ m/!op/i )   { 
-						$what =~ m/!op *(.*)/;
-						&log("$1 is now an op\n");
-						push(@fullowners, $1);
-					}
+					
 					if ( $what =~ m/!chop/i )   { 
 						$what =~ m/!chop (.*) (.*) (.*)/;
 						$irc->yield( 'mode' => $1 => $2 => $3 );
-						&log("$1 $2\n");
+						&log($kernel,$sender,"$1 $2\n");
 					}
 			}
 			#push(@array, "Data");
 		}
 		if ( $what =~ m/!help/i ) {
 			$kernel->post( $sender => privmsg => $nick =>
-				"1/2 op Commands: 'say, log, and msg' op commands: 'op, own, nick, and die"
+				"1/2 op Commands: 'say, log, subscribe, and msg' op commands: 'op, own, chop, nick, respond, and die"
 			);
+			
+			$kernel->post( $sender => privmsg => $nick =>
+				"Say:  Make the bot say something into the channel.  ( *char WHAT TO SAY )"
+			);
+			
+			$kernel->post( $sender => privmsg => $nick =>
+				"Log:  Make the bot log something into the bot's console and log file.  ( *char WHAT TO LOG )"
+			);
+			
+			$kernel->post( $sender => privmsg => $nick =>
+				"Subscribe:  Subscribe to recive messages sent to the bot.  NOTE: Ops recieve all log messages."
+			);	
+			
+			$kernel->post( $sender => privmsg => $nick =>
+				"Msg:  Make the bot message a user on the server.  ( *char USER *char WHAT TO SAY )"
+			);	
+		
 		}
 		
 		if ( $what =~ m/!subscribe/i )   {
 			$what =~ m/!subscribe *(.*)/;
-			&log("$nick is now a subscriber\n");
+			&log($kernel,$sender,"$nick is now a subscriber\n");
 			push(@subscribers, $nick);
 		}
 		if ( $what =~ m/!msg/i )  {
-			$what =~ m/!msg *(.*)/;
-			if ($name eq "0") {
-					$uname=$1;
-					$name="1";
-			} else {
-				$kernel->post( $sender => privmsg => $uname => "$1" );$name="0";
+				$what =~ m/!msg (.*) (.*)/;
+				$kernel->post( $sender => privmsg => $1 => $2 );
 			}
 		
-		}
 		}else {$runame="$nick";
 			$rname="1";
 		}
@@ -235,13 +251,22 @@ sub irc_msg {
 
 
 sub log{
-	my ($log) = @_;
+	my $kernel = shift;
+	my $sender = shift;
+	my $log = shift;
+
+	#Full Subscribers
+	my $fsubs="";
+	foreach $fsubs (@fsubscribers) {
+	print $fsubs."\n";
+		$kernel->post( $kernel => privmsg => $fsubs => "Livia: $log" ) or die "hi :D";
+	}
 	#Append the file
  	open(MYOUTFILE, ">>irc.log"); #open for write, append
 		( my $sec, my $min, my $hour, my $day, my $month, my $year ) = ( localtime ) [ 0, 1, 2, 3, 4, 5 ];
-		printf MYOUTFILE  "%02d:%02d:%02d %02d %s %04d", $hour, $min, $sec, $day, $month, $year+1900 ;
+		printf MYOUTFILE  "%02d:%02d:%02d %02d %s %04d", $hour, $min, $sec, $day, $month+1, $year+1900 ;
 		print MYOUTFILE ": $log";
-		printf "%02d:%02d:%02d %02d %s %04d", $hour, $min, $sec, $day, $month, $year+1900 ;
+		printf "%02d:%02d:%02d %02d %s %04d", $hour, $min, $sec, $day, $month+1, $year+1900 ;
 		print ": $log";
  	close(MYOUTFILE);
 }
