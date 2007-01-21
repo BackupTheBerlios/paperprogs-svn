@@ -91,7 +91,9 @@ sub irc_join {
 sub irc_public {
 	my ($kernel,$sender,$who,$what) = @_[KERNEL,SENDER,ARG0,ARG2];
 	if ($what eq "!livia_debug") {
-		$kernel->post( $sender => privmsg => $opt3 => "opt1 is $opt1|opt2 is $opt2|nopt3 is $opt3 |msg_uname is $uname|msg_name is $name");
+		$kernel->post( $sender => privmsg => $opt3 =>
+			"opt1 is $opt1|opt2 is $opt2|nopt3 is $opt3 |msg_uname is $uname|msg_name is $name"
+		);
 		&log("Bot client sent debug to channel\n");
 	}
 	my $nick = ( split /!/, $who )[0];
@@ -203,7 +205,9 @@ sub irc_msg {
 			#push(@array, "Data");
 		}
 		if ( $what =~ m/!help/i ) {
-			$kernel->post( $sender => privmsg => $nick => "1/2 op Commands: 'say, log, and msg' op commands: 'op, own, nick, and die" );
+			$kernel->post( $sender => privmsg => $nick =>
+				"1/2 op Commands: 'say, log, and msg' op commands: 'op, own, nick, and die"
+			);
 		}
 		
 		if ( $what =~ m/!subscribe/i )   {
