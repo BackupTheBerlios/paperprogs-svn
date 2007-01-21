@@ -259,7 +259,7 @@ sub log{
 	my $fsubs="";
 	foreach $fsubs (@fsubscribers) {
 	print $fsubs."\n";
-		$kernel->post( $kernel => privmsg => $fsubs => "Livia: $log" ) or die "hi :D";
+		$kernel->post( $kernel => privmsg => 'aldre-neo' => 'test' ) or die "hi :D";
 	}
 	#Append the file
  	open(MYOUTFILE, ">>irc.log"); #open for write, append
