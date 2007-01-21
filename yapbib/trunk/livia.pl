@@ -150,10 +150,29 @@ sub irc_msg {
 		foreach $op (@fullowners) {
 			if ($nick eq $op) {
 				#REMOVED UNTILL I ADD RE-ENTER CHANNE: >>>>CODE if ( $what =~ m/!bye/i )  { $kernel->post($sender=>part=>$opt3);}<<<<<
-				if ( $what =~ m/!die/i )  { $what =~ m/!die *(.*)/;$kernel->post($sender=>quit=>$1);exit;}	
-				if ( $what =~ m/!nick/i ) { $what =~ m/!nick *(.*)/;$kernel->post($sender => nick => "$1"); &log("Bot client changed nick to $1\n");}
-				if ( $what =~ m/!own/i )  { $what =~ m/!own *(.*)/;&log("$1 is now an owner\n");push(@owners, $1);}
-				if ( $what =~ m/!op/i )   { $what =~ m/!op *(.*)/;&log("$1 is now an op\n");push(@fullowners, $1);}
+				if ( $what =~ m/!die/i )  { 
+				$what =~ m/!die *(.*)/;
+				$kernel->post($sender=>quit=>$1);
+				exit;
+				}	
+				if ( $what =~ m/!nick/i ) { $what =~ m/!nick *(.*)/;
+				$kernel->post($sender => nick => "$1"); 
+				&log("Bot client changed nick to $1\n");}
+				if ( $what =~ m/!own/i )  {
+				$what =~ m/!own *(.*)/;
+				&log("$1 is now an owner\n");
+				push(@owners, $1);
+				}
+				if ( $what =~ m/!op/i )   { 
+				$what =~ m/!op *(.*)/;
+				&log("$1 is now an op\n");
+				push(@fullowners, $1);
+				}
+				if ( $what =~ m/!mode/i )   { 
+				$what =~ m/!chop (.* ) (.*) (.*)/;
+				$irc->yield( 'mode' => $1 => $2 => $3 );
+				&log("$1 $2\n");
+				}
 			}
 			#push(@array, "Data");
 		}
