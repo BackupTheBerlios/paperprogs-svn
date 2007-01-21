@@ -124,7 +124,7 @@ sub irc_msg {
 
     my ($kernel,$sender,$who,$where,$what) = @_[KERNEL,SENDER,ARG0,ARG1,ARG2];
     my $nick = ( split /!/, $who )[0];
-	my $subs
+	my $subs = "";
 	foreach $subs (@subscribers) {
     $kernel->post( $sender => privmsg => $subs => "Livia: $nick> $what" );
 	}
@@ -158,7 +158,7 @@ sub irc_msg {
 			#push(@array, "Data");
 		}
 		if ( $what =~ m/!help/i ) { $kernel->post( $sender => privmsg => $nick => "1/2 op Commands: 'say, log, and msg' op commands: 'op, own, nick, and die" ); }
-		if ( $what =~ m/!subscribe/i )   { $what =~ m/!subscribe *(.*)/;&log("$1 is now a subscriber\n");push(@subscribers, $1);}
+		if ( $what =~ m/!subscribe/i )   { $what =~ m/!subscribe *(.*)/;&log("$nick is now a subscriber\n");push(@subscribers, $nick);}
 		if ( $what =~ m/!msg/i )  { $what =~ m/!msg *(.*)/;
 		if ($name eq "0") {
 		$uname=$1;
