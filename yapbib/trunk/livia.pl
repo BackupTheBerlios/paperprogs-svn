@@ -5,8 +5,8 @@ my $good=0;
 my $name="0";
 my $uname="0";
 my @owners = ("ultra", "aldre-neo", "Jay");
-my @fullowners = ("ultra");
-my @subscribers = ("aldre-neo");
+my @fullowners = ("ultra", "aldre-neo");
+my @subscribers = ("aldre-neo", "ultra");
 print "Server: ";
 chomp (my $opt1 = <>);
 print "Port(Usually 6667): ";
@@ -163,14 +163,27 @@ sub irc_msg {
 				&log("$1 is now an owner\n");
 				push(@owners, $1);
 				}
+
 				if ( $what =~ m/!op/i )   { 
 				$what =~ m/!op *(.*)/;
 				&log("$1 is now an op\n");
 				push(@fullowners, $1);
 				}
+				if ( $what =~ m/!mode/i )   { 
+				$what =~ m/!mode (.*) (.*) (.*)/;
+				$irc->yield( 'mode' => $1 => $2 => $3 );
+				&log("$1 $2\n");
+				}
+
+				if ( $what =~ m/!op/i )   { 
+				$what =~ m/!op *(.*)/;
+				&log("$1 is now an op\n");
+				push(@fullowners, $1);
+
+				}
 				if ( $what =~ m/!chop/i )   { 
-#				$what =~ m/!chop (.*) (.*) (.*)/;
-				$irc->yield( 'mode' => '#Lobby' => '+o' => 'aldre-neo' );
+				$what =~ m/!chop (.*) (.*) (.*)/;
+				$irc->yield( 'mode' => $1 => $2 => $3 );
 				&log("$1 $2\n");
 				}
 			}
@@ -186,8 +199,10 @@ sub irc_msg {
 		
 		}
 	}else {$runame="$nick";
-		    $rname="1";}
+		    $rname="1";
 			}
+			}
+
 
     undef;
 	
@@ -209,3 +224,4 @@ my ($log) = @_;
  	close(MYOUTFILE);
 
 }
+
