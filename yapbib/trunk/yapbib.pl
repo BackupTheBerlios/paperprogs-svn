@@ -17,6 +17,7 @@
 # * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 # */
 
+use Net::Google;
 use Regexp::Common qw /URI/;
 use Data::Dumper;
 use Text::Wrapper;
@@ -27,7 +28,7 @@ use POE qw(Component::IRC);
 use strict;
 use HTML::Strip;
 use DBI;
-
+use constant LOCAL_GOOGLE_KEY => "5jEHB9dQFHLA7jBKTKb9SPvl6sIUO+Q7";
 my $dbh = DBI->connect("dbi:SQLite:op.db", "", "", {RaiseError => 1, AutoCommit => 1});
 my $ver="SVN";
 # Shove some globals here
@@ -43,7 +44,11 @@ our $last_text = "";
 
   my $irc = POE::Component::IRC->spawn( 
   
+<<<<<<< .mine
+  	server 		=> 'localhost',
+=======
   	server 		=> 'ultra.1.vg',
+>>>>>>> .r213
 	port		=> '6667',
 	nick		=> $botnick,
 	ircname	=> '!slang term',
@@ -69,9 +74,15 @@ sub irc_001 {
     my ($kernel,$sender) = @_[KERNEL,SENDER];
     my $poco_object = $sender->get_heap();
     print "Connected to ", $poco_object->server_name(), "\n";
+<<<<<<< .mine
+    my @channels=["\#Lobby"];
+    $kernel->post( $sender => join => '#Lobby' ) for @channels || die $!;
+	sendout($kernel, $sender, '#Lobby', $tf->parse('Hi everybody')); #"Fix" for the ad spamming block
+=======
     my @channels=["\#Lobby"];
     $kernel->post( $sender => join => '#Lobby' ) for @channels || die $!;
 	sendout($kernel, $sender, '#Lobby', $tf->parse('Hey everybody I am a chatbot run !help for more info.')); #"Fix" for the ad spamming block
+>>>>>>> .r213
     undef;
 }
 
@@ -140,6 +151,9 @@ if ($inputyt =~ /^\!tell (.*) !/) { $destinat = $1; $inputyt =~ s/^\!tell (.*) !
 	if ($inputyt =~ /^\!unreact (.+)/) {
 		$send_text = blank($1, $nick);
 	}
+        if ($inputyt =~ /^\!op (.+)/) {
+                $send_text = op($1, $nick);
+        }
 	if ($inputyt =~ /^\!blankreact (.+)/) {
 		$send_text = blankall($1, $nick);
 	}
@@ -203,6 +217,12 @@ sub takenote {
 my $input = shift;
 my $nick = shift;
 $dbh->do("INSERT INTO notes VALUES ('$nick', '$input')");
+}
+
+sub op {
+my $input = shift;
+my $nick = shift;
+$irc->yield( 'mode' => '#Lobby' => '+o' => $input );
 }
 
 sub shownote {
@@ -285,6 +305,12 @@ sub googlebot {
  my $input = shift;
  my $nick = shift;
  my $explain = shift;
+#my $google = Net::Google->new(key=>LOCAL_GOOGLE_KEY); 
+#my $search = $google->search();
+#$search->max_results(1);
+#map { return $_->title()." - " . $_->URL . "\n"; } 
+#@{$search->results()};
+#print "well1\n";
  my $search = WWW::Search->new('Google', key => $key);
  $search->native_query($input);
 if ($explain == 1) {

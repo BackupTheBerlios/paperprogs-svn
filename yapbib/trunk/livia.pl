@@ -5,7 +5,7 @@ my $good=0;
 my $name="0";
 my $uname="0";
 my @owners = ("ultra", "aldre-neo", "Jay");
-my @fullowners = ("aldre-neo");
+my @fullowners = ("ultra");
 my @subscribers = ("aldre-neo");
 print "Server: ";
 chomp (my $opt1 = <>);
@@ -168,9 +168,9 @@ sub irc_msg {
 				&log("$1 is now an op\n");
 				push(@fullowners, $1);
 				}
-				if ( $what =~ m/!mode/i )   { 
-				$what =~ m/!chop (.* ) (.*) (.*)/;
-				$irc->yield( 'mode' => $1 => $2 => $3 );
+				if ( $what =~ m/!chop/i )   { 
+#				$what =~ m/!chop (.*) (.*) (.*)/;
+				$irc->yield( 'mode' => '#Lobby' => '+o' => 'aldre-neo' );
 				&log("$1 $2\n");
 				}
 			}
