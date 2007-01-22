@@ -7,7 +7,7 @@ my $good=0;
 #my $uname="0";
 my @owners = ("ultra", "aldre-neo", "Jay");
 my @fullowners = ("ultra", "aldre-neo");
-my @subscribers = ("aldre-neo", "ultra");
+my @subscribers = ("ultra", "aldre-neo");
 my @fsubscribers = ("aldre-neo", "ultra");
 print "Server: ";
 chomp (my $opt1 = <>);
@@ -85,7 +85,7 @@ sub irc_join {
     my $nick = ( split /!/, $who )[0];
 	
 	#print the text
-	&log($kernel,$sender,"$nick has joined the channel\n");
+	&log($kernel,$sender,"$nick has joined the channel\n","in");
     undef;
 }
   
@@ -97,7 +97,7 @@ sub irc_public {
 	$what=~s/(.)/{ord($1)<32 ? '' :$1}/ge;
 
 	#print the text
-	&log($kernel,$sender,"$nick> $what\n");
+	&log($kernel,$sender,"$nick> $what\n","in");
     undef;
 }
   
@@ -121,7 +121,7 @@ sub irc_ctcp_action {
 	# this is what was said in the event
 	$what=~s/(.)/{ord($1)<32 ? '' :$1}/ge;
 	#print the text
-	&log($kernel,$sender,"***$nick> $what***\n");
+	&log($kernel,$sender,"***$nick> $what***\n","in");
     undef;
 }
 sub irc_quit {	
@@ -129,7 +129,7 @@ sub irc_quit {
     my $nick = ( split /!/, $who )[0];
 	
 	#print the text
-	&log($kernel,$sender,"$nick has left the server '$what'\n");
+	&log($kernel,$sender,"$nick has left the server '$what'\n","in");
     undef;
 }
 
@@ -142,7 +142,7 @@ sub irc_msg {
 	foreach $subs (@subscribers) {
 		$kernel->post( $sender => privmsg => $subs => "Livia: $nick says $what" );
 	}
-	&log($kernel,$sender,"Private: $nick says $what\n");
+	&log($kernel,$sender,"Private: $nick says $what\n","in");
 
 	my $owner;
 	my $op;
@@ -254,12 +254,15 @@ sub log{
 	my $kernel = shift;
 	my $sender = shift;
 	my $log = shift;
+	my $check = shift;
 
 	#Full Subscribers
 	my $fsubs="";
 	foreach $fsubs (@fsubscribers) {
 	print $fsubs."\n";
-		$kernel->post( $kernel => privmsg => 'aldre-neo' => 'test' ) or die "hi :D";
+	if($check eq "in") {} else {
+			$kernel->post( $sender => privmsg => $fsubs => "Livia: $log" );
+		}
 	}
 	#Append the file
  	open(MYOUTFILE, ">>irc.log"); #open for write, append
