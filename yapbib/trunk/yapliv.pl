@@ -16,6 +16,7 @@ my $dbh = DBI->connect("dbi:SQLite:op.db", "", "", {RaiseError => 1, AutoCommit 
 my $ver="SVN";
 # Shove some globals here
 our @opinions;
+
 our $tf = HTML::Strip->new();
 our $key = "5jEHB9dQFHLA7jBKTKb9SPvl6sIUO+Q7";
 our $udkey = "9bdb4a65fea022ffd0e27a775c75364b";
@@ -27,13 +28,13 @@ our $last_text = "";
 my $good=0;
 #my $name="0";
 #my $uname="0";
-my @owners = ("ultra", "aldre-neo", "Jay");
-my @fullowners = ("ultra", "aldre-neo");
-my @subscribers = ("aldre-neo");
-my @fsubscribers = ("aldre-neo",);
-our $opt1 = 'irc.stealmy.info';
+my @owners = ("slyf");
+my @fullowners = ("slyf");
+my @subscribers = ("slyf");
+my @fsubscribers = ("slyf");
+our $opt1 = 'irc.efnet.ca';
 our $opt2='6667';
-our $opt3='#Lobby';
+our $opt3='#shitinthechan';
 if ($opt3 !~ m/\A#/)
 {	
 	$opt3="#$opt3";print "Using $opt3\n";
@@ -46,7 +47,7 @@ my $input="";
 my $runame="";
 my $rname="";
 
-my @channels = ( $opt3 );
+my @channels = ( $opt3, "#circle" );
 
   # We create a new PoCo-IRC object and component.
 my $irc = POE::Component::IRC->spawn( 
@@ -88,7 +89,8 @@ sub irc_001 {
 
     # In any irc_* events SENDER will be the PoCo-IRC session
     $kernel->post( $sender => join => $_ ) for @channels;
-    undef;
+	    #$irc->yield( 'mode' => '\#lobby' => '+B' => 'Yapliv' );
+	undef;
 }
 
 sub irc_error {
@@ -113,135 +115,178 @@ sub irc_public {
 	my ($kernel,$sender,$who,$tochan,$what) = @_[KERNEL,SENDER,ARG0,ARG1,ARG2];
 		my $nick = ( split /!/, $who )[0];
 			$what=~s/(.)/{ord($1)<32 ? '' :$1}/ge;
-		if ( $what =~ m/!help/i ) {
-			$kernel->post( $sender => privmsg => $nick =>
-				"Public commands: 'tell, noslang, react, unreact, blankeact, google,
-				explain, mentanote, shownote, urban, 8ball, rnd, help,and tinyurl'
-				
-				1/2 op Commands: 'say, log, unsubscribe, subscribe, and msg'
-				
-				op commands: 'op, unop, own, unown, chop, nick, respond, fsubscribe, unfsubscribe, and die"
-			);
-			
-			
 
+		if ( $what =~ m/!help/i ) {
+		$what =~ m/!help *(.*)/;
+		my $help=$1;
+		
 			
+			if ($help) {
+			if ($help eq "tell") {
 						$kernel->post( $sender => privmsg => $nick =>
 				"Tell:  Tell a user something. ( *char USER *char WHAT )"
 			);
+			}
+			if ($help eq "noslang") {
 						$kernel->post( $sender => privmsg => $nick =>
 				"Noslang: Removed slang from any text.  ( *char STRING TO UN-SLANG )"
 			);
+			}
+			if ($help eq "react") {
 						$kernel->post( $sender => privmsg => $nick =>
-				"React:  Make the bot auto-react to something you say.  ( *char WHAT *char WHAT TO DO )"
+				"React:  Make the bot auto-react to something you say.  ( *char WHAT-*char WHAT TO SAY )"
 			);
+			}
+			if ($help eq "unreact") {
 						$kernel->post( $sender => privmsg => $nick =>
 				"Unreact:  Remove a reaction(See: React) ( *char REACTION WHAT )"
 			);
-			
+			}
+			if ($help eq "blankreact") {
 			$kernel->post( $sender => privmsg => $nick =>
 				"Blankreact:  Clears the react database(See: React)"
 			);
+			}
+			if ($help eq "google") {
 						$kernel->post( $sender => privmsg => $nick =>
 				"Google:  Make the bot your personal google slave. ( *char GOOGLE QUERY )"
 			);
+			}
+			if ($help eq "explain") {
 						$kernel->post( $sender => privmsg => $nick =>
 				"Explain:  Google Light(Only search litle, see 'Google') ( *char GOOGLE QUERY )"
 			);
+			}
+			if ($help eq "mentalnote") {
 						$kernel->post( $sender => privmsg => $nick =>
-				"mentalnote"
+				"Mentalnote:  Make a note which can be later called (See: shownote) ( *char NOTE )"
 			);
+			}
+			if ($help eq "shownote") {
+						$kernel->post( $sender => privmsg => $nick =>
+				"Shownote:  Show the note you took (See: mentalnote)"
+			);
+			}
+			if ($help eq "urban") {
+						$kernel->post( $sender => privmsg => $nick =>
+				"Urban:  Lookup for the urban dictionary. ( *char QUERY )"
+			);
+			}
+			if ($help eq "8ball") {
+						$kernel->post( $sender => privmsg => $nick =>
+				"8ball:  Make the bot return an \"amusing\" thing. ( *char SEED )"
+			);
+			}
+			if ($help eq "rnd") {
+						$kernel->post( $sender => privmsg => $nick =>
+				"Rnd: Return a random number from 1-NUMBER ( *int NUMBER )"
+			);
+			}
+			if ($help eq "help") {
+						$kernel->post( $sender => privmsg => $nick =>
+				"Help: Return a help one-liner for a command, or for a list of commands dont send any parameters. ( *char COMMAND )"
+			);
+			}
+			if ($help eq "tinyurl") {
+						$kernel->post( $sender => privmsg => $nick =>
+				"Tinyurl: TinyURL a url.  ( *char URL )"
+			);
+			}
 			
-						$kernel->post( $sender => privmsg => $nick =>
-				"shownote"
-			);
-						$kernel->post( $sender => privmsg => $nick =>
-				"urban"
-			);
-						$kernel->post( $sender => privmsg => $nick =>
-				"8ball"
-			);
-						$kernel->post( $sender => privmsg => $nick =>
-				"rnd"
-			);
-						$kernel->post( $sender => privmsg => $nick =>
-				"help"
-			);
-						$kernel->post( $sender => privmsg => $nick =>
-				"tinyurl"
-			);
-			
-			
+						if ($help eq "say") {
 			$kernel->post( $sender => privmsg => $nick =>
 				"Say:  Make the bot say something into the channel.  ( *char WHAT TO SAY )"
 			);
-			
+			}
+						if ($help eq "log") {
 			$kernel->post( $sender => privmsg => $nick =>
 				"Log:  Make the bot log something into the bot's console and log file.  ( *char WHAT TO LOG )"
 			);
-			
+			}
+						if ($help eq "subscribe") {
 			$kernel->post( $sender => privmsg => $nick =>
 				"Subscribe:  Subscribe to recive messages sent to the bot."
 			);	
-			
+			}
+						if ($help eq "unsubscribe") {
 			$kernel->post( $sender => privmsg => $nick =>
 				"Unubscribe:  UnSubscribe to recive subscribe(See: Subscribe)"
 			);	
+			}
+						if ($help eq "msg") {
 			
 			$kernel->post( $sender => privmsg => $nick =>
 				"Msg:  Make the bot message a user on the server.  ( *char USER *char WHAT TO SAY )"
 			);	
+			}
 			
 			#Op commands
 			
+						if ($help eq "op") {
 			$kernel->post( $sender => privmsg => $nick =>
 				"Op:  Give a user operator permissions to the bot. ( *char USER )"
 			);	
-			
+			}
+						if ($help eq "unop") {
 			$kernel->post( $sender => privmsg => $nick =>
 				"Unop:  Remove operator permissions to the bot (See: Op). ( *char USER )"
 			);	
-
-			
+}
+						if ($help eq "own") {
 			$kernel->post( $sender => privmsg => $nick =>
 				"Own:  Give a user 1/2 operator permissions to the bot.  ( *char USER)"
 			);	
-
-			
+}
+						if ($help eq "unown") {
 			$kernel->post( $sender => privmsg => $nick =>
 				"Unown:  Remove 1/2 operator permissions to the bot for a user.  ( *char USER )"
 			);	
-
-			
+}
+						if ($help eq "chop") {
 			$kernel->post( $sender => privmsg => $nick =>
 				"Chop:  Switch the mode of a user in IRC.  ( *char CHANNEL *char MODE *char USER )"
 			);	
-
-			
+}
+						if ($help eq "msg") {
 			$kernel->post( $sender => privmsg => $nick =>
 				"Nick:  Change the nick of the bot.  ( *char NEW NICK )"
 			);	
-
-			
+}
+						if ($help eq "respond") {
 			$kernel->post( $sender => privmsg => $nick =>
 				"Respond:  Use when a message is sent to the bot(Subsribers recieve these messages),
 				this will send a reply to the sender of the last message recieved. ( *char RESONCE )"
 			);	
-
-			
+}
+						if ($help eq "fsubscribe") {
 			$kernel->post( $sender => privmsg => $nick =>
 				"Fsubscribe:  Console subscription for a user to recieve more advanced messages. ( *char USER )"
 			);	
-
-			
+}
+						if ($help eq "funsubscribe") {
 			$kernel->post( $sender => privmsg => $nick =>
 				"Funsubscribe:  Unsubscribe a user to Fsubscribe(See Fubscribe) ( *char USER )"
 			);	
-			
-			
+			}
+						if ($help eq "die") {
 			$kernel->post( $sender => privmsg => $nick =>
 				"Die:  Kill the bot ( *char EXIT MESSAGE )"
 			);	
+			}
+			} else {
+			
+						$kernel->post( $sender => privmsg => $nick =>
+				"Public commands: 'tell, noslang, react, unreact, blankeact, google, explain, mentanote, shownote, urban, 8ball, rnd, help,and tinyurl '1/2 op Commands: 'say, log, unsubscribe, subscribe, and msg' op commands: 'op, unop, own, unown, chop, nick, respond, fsubscribe, unfsubscribe, and die"
+			);
+			
+			$kernel->post( $sender => privmsg => $nick =>
+				"Op and 1/2 op commands are messaged to the bot: PASSWORD !COMMAND PARAMETERS"
+			);
+			
+			$kernel->post( $sender => privmsg => $nick =>
+				"User commands are said in the channel: !COMMAND PARAMETERS"
+			);
+			}
 
 
 			
@@ -409,8 +454,19 @@ if ($inputyt =~ /^\!tell (.*) !/) { $destinat = $1; $inputyt =~ s/^\!tell (.*) !
 		$send_text = blank($1, $nick);
 	}
 
-	if ($inputyt =~ /^\!blankreact (.+)/) {
+	if ($inputyt =~ /^\!blankreact/) {
 		$send_text = blankall($1, $nick);
+	}
+	
+	if ($inputyt =~ /^\!jay !killself (.+)/) {
+	$kernel->post($sender=>part=>$1);
+	
+	$kernel->post( $sender => join => $1 );
+	$send_text = "I cannot be killed for I am the wonder EMO";
+	}
+	
+	if ($inputyt =~ /^\!jay/) {
+		$send_text = "Emo is the king";
 	}
 	if (getreplyfromdb($inputyt)) { $send_text = getreplyfromdb($inputyt, $nick); }
 	if ($inputyt =~ /^\!google (.+)/) {
@@ -433,9 +489,6 @@ if ($inputyt =~ /^\!tell (.*) !/) { $destinat = $1; $inputyt =~ s/^\!tell (.*) !
 	}
 	if ($inputyt =~ /^\!rnd (.+)/) {
 		$send_text = rnmbr($1, $nick);
-	}
-	if ($inputyt =~ /^\!commands/) {
-		$send_text = cmds($1, $nick);
 	}	
 	if ($inputyt =~ /^\!tinyurl (.+)/) {
 	$send_text = turlbot($1, $nick);
@@ -619,9 +672,9 @@ sub log{
 		( my $sec, my $min, my $hour, my $day, my $month, my $year ) = ( localtime ) [ 0, 1, 2, 3, 4, 5 ];
 		printf MYOUTFILE  "%02d:%02d:%02d %02d %s %04d", $hour, $min, $sec, $day, $month+1, $year+1900 ;
 		print MYOUTFILE ": $log";
-		printf "%02d:%02d:%02d %02d %s %04d", $hour, $min, $sec, $day, $month+1, $year+1900 ;
+			printf "%02d:%02d:%02d %02d %s %04d", $hour, $min, $sec, $day, $month+1, $year+1900 ;
 		print ": $log";
- 	close(MYOUTFILE);
+		close(MYOUTFILE);
 }
 #EOF
 
